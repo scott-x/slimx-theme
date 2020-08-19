@@ -1,0 +1,112 @@
+.modal{
+  display: none;
+  position: fixed; 
+  padding-top: 50px;
+  left: 0; 
+  top: 0;
+  width: 100%;
+  height: 100%; 
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal .modal-wrapper {
+  position: fixed; 
+  right: 0;
+  width: 600px;
+  height: 100%;
+  border-radius: 5px;
+  background-color: white;
+  font-family: sans-serif;
+  border: 1px solid rgba(0,0,0,.2);
+  box-shadow: 0 3px 9px rgba(0,0,0,.5);
+  margin: 0 auto;
+  -webkit-animation-name: animateright;
+  -webkit-animation-duration: 0.6s;
+  animation-name: animateright;
+  animation-duration: 0.6s
+}
+.modal-wrapper .modal-header {
+  padding:0 20px;
+  width: 100%;
+  height: 54px;
+  border-bottom: 1px solid #ccc;
+}
+.modal-wrapper .modal-header span {
+  display: inline-block;
+  height: 54px;
+  font-size: 18px;
+  line-height: 54px;
+}
+.modal-wrapper .modal-header .title {
+  float: left;
+  font-family: "Arial",sans-serif;
+}
+
+.modal-wrapper .modal-header .close-btn {
+  float: right; 
+  margin-right: 40px;
+  color: lightgray; 
+  font-size: 24px;  
+  font-weight: bold;
+}
+
+.modal-wrapper .modal-header .close-btn:hover{
+  color: #666;
+  cursor: pointer;
+}
+.modal-wrapper .modal-mcontent1 {
+  padding: 0 20px;
+  margin: auto; 
+  width: 100%;  
+}
+.modal-wrapper .modal-footer1{
+  padding: 0 20px;
+  border-top: 1px solid #ccc;
+  position: fixed;
+  bottom: 0;
+  right: 0px;
+  float: right;
+  width: 600px;
+  height: 54px;
+  box-sizing: border-box;
+  -webkit-animation-name: animateright;
+  -webkit-animation-duration: 0.6s;
+  animation-name: animateright;
+  animation-duration: 0.6s
+}
+.modal-wrapper .modal-footer1 input[type='button'] {
+  margin-right: 15px;
+  height: 30px;
+  border-radius: 4px;
+  margin-top: 11px;
+  outline: none;
+}
+.modal-wrapper .modal-footer1 input[type='button']:hover{
+  cursor: pointer;
+}
+.modal-wrapper .modal-footer1 #btn1 {
+  background: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+}
+.modal-wrapper .modal-footer1 #btn1:hover {
+  background: #ccc;
+}
+
+.modal-wrapper .modal-footer1 #btn2 {
+  background: #337AB7;
+  border: 1px solid #337AB7;
+  color: #fff;
+}
+.modal-wrapper .modal-footer1 #btn2:hover {
+  background: #286090;
+}
+
+@-webkit-keyframes animateright {
+  from {right:--600px; opacity:0} 
+  to {right:0; opacity:1}
+}
+@keyframes animateright {
+  from {right:-600px; opacity:0}
+  to {right:0; opacity:1}
+}

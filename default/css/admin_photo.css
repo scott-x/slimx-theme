@@ -1,0 +1,51 @@
+/*
+* @Author: scottxiong
+* @Date:   2020-07-16 11:20:48
+* @Last Modified by:   scottxiong
+* @Last Modified time: 2020-07-16 15:09:17
+*/
+.right .myAdd {
+	display: inline;
+	color: #f60;
+}
+.admin-photo {
+	margin-top:10px;
+	padding-right: 15px;
+}
+
+.right .modal #avator {
+	width: 500px;
+	height: 300px;
+	margin: 0 auto;
+	border: 1px dotted #ccc;
+}
+.right .modal #avator .iconfont {
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	font-size: 140px;
+	opacity: 0.3;
+	margin-top: 50px;
+}
+
+.right .modal #avator .text {
+	display: block;
+	text-align: center;
+	margin-top: 20px;
+	color: #787878;
+}
+.right .modal .desc {
+	width: 500px;
+	margin: 30px auto;
+	font-family: sans-serif;
+	font-size: 14px;
+	color: #666;
+}
+.right .modal .desc input {
+	width: 434px;
+	outline: none;
+	border: 1px solid #ccc;
+	padding: 2px 5px;
+	border-radius: 3px;
+	color: #787878;
+}

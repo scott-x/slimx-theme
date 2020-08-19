@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <link rel="stylesheet" type="text/css" href="/statics/font-awesome/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="/statics/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/statics/iconfont/iconfont.css">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700,900|Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'> -->
+    <link rel="stylesheet" type="text/css" href="/statics/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/admin.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/admin_setting.css">
+    <!-- <link rel="stylesheet" href="/statics/upload/dist/css/dropify.min.css"> -->
+    <title>{{ .Title }}</title>
+    <script src="/statics/js/jquery-3.5.0.min.js"></script>
+    <script src="/statics/bootstrap/js/bootstrap.min.js"></script>
+    <!-- <script type="text/javascript" src="/statics/bootstrap/js/bootstrap.min.js"></script> -->
+</head>
+<body>
+<!-- header begin -->
+<div class="header">
+    <div class="title"></div>
+    <div class="avator"></div>
+    <div class="logout">
+        <ul>
+            <li class="exit">退出</li>
+        </ul>
+    </div>
+</div>
+<!-- header end -->
+
+<!-- left begin -->
+<div class="left">
+    <ul>
+        <li>
+            <a href="/admin">
+                <span class="iconfont icon-yibiaopan"></span>
+                <span>仪表盘</span>
+            </a>
+        </li>
+        <li>
+            <a href="/admin/write">
+                <span class="iconfont icon-write"></span>
+                <span>写文章</span>
+            </a>
+        </li>
+        <li>
+            <a href="/admin/tags">
+                <span class="iconfont icon-addphoto_icon_biaoqian_normal"></span>
+                <span>标签管</span>
+            </a>
+        </li>
+        <li>
+            <a href="/admin/articles">
+                <span class="iconfont icon-to-do"></span>
+                <span>文章管理</span>
+            </a>
+        </li>
+        <li>
+            <a href="/admin/photo">
+                <span class="iconfont icon-photo"></span>
+                <span>图片收藏</span>
+            </a>
+        </li>
+        <li class="active">
+            <a href="/admin/setting">
+                <span class="iconfont icon-setting1"></span>
+                <span class="active">系统设置</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- left end -->
+
+<!-- right begin -->
+<div class="right">
+    <div class="nav">
+        admin/系统设置
+    </div>
+    <div class="admin-setting">
+        <div class="row">
+            <h3>1. 显示条数管理</h3>
+            <h4>1.1 前台页面显示</h4>
+            <div class="item">
+
+                <div class="name">博客</div>
+                <div class="value">
+                    <div class="mui-numbox b1">
+                        <button class="minus reduce" type="button">-</button>
+                        <input class="numbox" type="number" id="val1" data-id="1"/>
+                        <button class="minus plus" type="button">+</button>
+                        <span>条/页</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <h4>1.2 后台页面显示</h4>
+            <div class="item">
+                <div class="name">博客</div>
+                <div class="value">
+                    <div class="mui-numbox b2">
+                        <button class="minus reduce" type="button">-</button>
+                        <input class="numbox" type="number" id="val2" data-id="2"/>
+                        <button class="minus plus" type="button">+</button>
+                        <span>条/页</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+
+                <div class="name">标签</div>
+                <div class="value">
+                    <div class="mui-numbox b3">
+                        <button class="minus reduce" type="button">-</button>
+                        <input class="numbox" type="number" id="val3" data-id="3"/>
+                        <button class="minus plus" type="button">+</button>
+                        <span>条/页</span>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <div class="item">
+
+                <div class="name">图片</div>
+                <div class="value">
+                    <div class="mui-numbo b4">
+                        <button class="minus reduce" type="button">-</button>
+                        <input class="numbox" type="number" id="val4" data-id="4"/>
+                        <button class="minus plus" type="button">+</button>
+                        <span>条/页</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <h3>2. 个人设置</h3>
+            <!-- nickname -->
+            <div class="item me">
+                <div class="name">昵称&nbsp;</div>
+                <div class="value nickname">
+                    <input type="text" id="val5" data-id="5">
+                </div>
+            </div>
+
+            <!-- 头像 -->
+            <div class="item me">
+                <div class="name">头像&nbsp;</div>
+                <div class="value avator" id="avator">
+                    <img src="/uploads/default.png" alt="" >
+                </div>
+            </div>
+
+            <!-- 后台名称 -->
+            <div class="item me">
+                <div class="name">后台名称&nbsp;</div>
+                <div class="value  admin">
+                    <input type="text"  id="val6" placeholder="" data-id="7">
+                </div>
+            </div>
+            <!-- github -->
+            <div class="item me">
+                <div class="name">github&nbsp;</div>
+                <div class="value  github">
+                    <input type="text"  id="val7" placeholder="" data-id="8">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- right end -->
+<script>
+    $(function(){
+        var storage=localStorage;
+        //update
+        function update(arg,pos) {
+            $.post("/api/blog/update_setting",{
+                arg:arg,
+                pos:pos
+            },function(data){
+                console.log(data)
+            })
+        }
+        $.get("/api/blog/get_setting",{},function (data){
+            var setting  = data.setting
+
+            $(".b1 input").val(setting.front_blog_show)
+            $(".b2 input").val(setting.admin_blog_show)
+            $(".b3 input").val(setting.admin_tag_show)
+            $(".b4 input").val(setting.admin_image_show)
+
+            $(".me .nickname input").val(setting.nickname)
+            $(".me .avator").html(`<img src="${setting.avator}" alt="" >`)
+            $(".me .admin input").val(setting.admin_name)
+            $(".me .github input").val(setting.github)
+
+        })
+        
+        //minus
+        $(".b1 .reduce").click(function(){
+            val = parseInt($("#val1").val())-1
+            $("#val1").val(val)
+            update(val,1)
+        })
+
+        //plus
+        $(".b1 .plus").click(function(){
+            val = parseInt($(" #val1").val())+1
+            $("#val1").val(val)
+            update(val,1)
+        })
+
+
+        //minus
+        $(".b2 .reduce").click(function(){
+            val = parseInt($("#val2").val())-1
+            $("#val2").val(val)
+            update(val,2)
+        })
+
+        //plus
+        $(".b2 .plus").click(function(){
+            val = parseInt($("#val2").val())+1
+            $("#val2").val(val)
+            update(val,2)
+        })
+
+        //minus
+        $(".b3 .reduce").click(function(){
+            val = parseInt($("#val3").val())-1
+            $("#val3").val(val)
+            update(val,3)
+        })
+
+        //plus
+        $(".b3 .plus").click(function(){
+            val = parseInt($("#val3").val())+1
+            $("#val3").val(val)
+            update(val,3)
+        })
+
+        //minus
+        $(".b4 .reduce").click(function(){
+            val = parseInt($("#val4").val())-1
+            $("#val4").val(val)
+            update(val,4)
+        })
+
+        //plus
+        $(".b4 .plus").click(function(){
+            val = parseInt($("#val4").val())+1
+            $("#val4").val(val)
+            update(val,4)
+        })
+
+        $("input[id^='val']").change(function (data){
+            var id =$(this).data("id")
+            var value = $(this).val()
+            update(value,id)
+            updateLocal(value,id)
+        })
+
+        function updateLocal(value,pos) {
+            var setting = storage.getItem("setting")
+            if (setting!="null"){
+                setting = JSON.parse(setting)
+                switch(parseInt(pos)){
+                    case 5:
+                        setting.nickname = value
+                        $(".header .avator").html(`
+                            <img src="${setting.avator}" alt=""> <span>${setting.nickname}</span><span class="iconfont icon-entypodownopenmini"></span>
+                        `)
+                        break;
+                    case 7:
+                        setting.admin_name =value
+                        $(".header .title").html(value)
+                        break;
+                    case 8:
+                        setting.github = value  
+                        break;  
+                }
+                storage.setItem("setting",JSON.stringify(setting))
+            }           
+        }
+    })
+</script>
+<script src="/statics/js/admin.js"></script>
+<script src="/statics/js/setting.js"></script>
+</body>
+</html>

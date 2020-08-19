@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <link rel="stylesheet" type="text/css" href="/statics/font-awesome/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="/statics/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/statics/iconfont/iconfont.css">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700,900|Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'> -->
+    <link rel="stylesheet" type="text/css" href="/statics/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/admin.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/prism.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/admin_write.css">
+    <title>{{ .Title }}</title>
+    <script src="/statics/js/jquery-3.5.0.min.js"></script>
+    <script src="/statics/bootstrap/js/bootstrap.min.js"></script>
+    <link  type="text/css" href="/statics/themes/prism-vs-dark-plus.css">
+
+</head>
+<body>
+    <!-- header begin -->
+    <div class="header">
+        <div class="title"></div>
+        <div class="avator"></div>
+        <div class="logout">
+            <ul>
+                <li class="exit">退出</li>
+            </ul>
+        </div>
+    </div>
+    <!-- header end -->
+
+    <!-- left begin -->
+    <div class="left">
+        <ul>
+             <li>
+                <a href="/admin">
+                    <span class="iconfont icon-yibiaopan"></span>
+                    <span>仪表盘</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="/admin/write">
+                    <span class="iconfont icon-write"></span>
+                    <span class="active">写文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/tags">
+                    <span class="iconfont icon-addphoto_icon_biaoqian_normal"></span>
+                    <span>标签管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/articles">
+                    <span class="iconfont icon-to-do"></span>
+                    <span>文章管理</span>
+                </a>
+            </li>
+             <li>
+                <a href="/admin/photo">
+                    <span class="iconfont icon-photo"></span>
+                    <span>图片收藏</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/setting">
+                    <span class="iconfont icon-setting1"></span>
+                    <span>系统设置</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- left end -->
+    
+    <!-- right begin -->
+    <div class="right">
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="myModal" >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel" style="font-weight: bold;"></h4>
+              </div>
+              <div class="modal-body">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <div class="mypost">
+            <div class="nav">
+                admin/写文章
+            </div>
+            <div id="post">
+                <div class="subject">
+                    <div class="text">
+                        标题: 
+                    </div>  
+                    <div class="input">
+                        <input type="text" id="subject">
+                    </div>  
+                </div>
+                <div class="subject">
+                    <div class="text">简介:</div>
+                    <div id="bref_introduction">
+                        <textarea  id="limit_content" ></textarea>
+                    </div>  
+                    <div id="avator">
+                        <span class="iconfont icon-Cloudupload"></span>
+                        <span class="text">drop upload</span>
+                    </div>
+                </div>
+                <div class="tags subject clear">
+                    <div class="info text">标签:</div>
+                    <div class="taginfo">
+                        <ul>
+                            
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="subject clear">
+                    <div class="text">
+                        博客:
+                    </div>
+                    <div class='mkd' >
+                        <textarea id="mkd"></textarea>
+                    </div>
+                </div>
+
+                <div id="action" class="subject">
+                        <button type="button" class="btn btn-success review">预览</button>
+                        <button class="btn btn-default save">存为草稿</button>
+                        <button class="btn btn-primary submit">发布</button>
+                </div>
+                <div class="subject err">
+                    <span id="msg"></span>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- right end -->
+    <script type="text/javascript">
+        
+        $(function(){
+            $.ajax({
+                url: "/api/tags",    // 提交到controller的url路径，在本页面就直接用?代替文件名即可，省略文件名，别的页面则需写全路径
+                cache:false,
+                type: "get",    // 提交方式
+                data: {},  // data为String类型，必须为 Key/Value 格式。
+                dataType: "json",    // 服务器端返回的数据类型
+                success: function (data) {    // 请求成功后的回调函数，其中的参数data为controller返回的map,也就是说,@ResponseBody将返回的map转化为JSON格式的数据，然后通过data这个参数取JSON数据中的值
+                    var arr = data.tags
+                    if (data.code==200){
+                        //登录成功
+                        var dom = ""
+                        for (var i = 0; i <= arr.length - 1; i++) {
+                            dom += `<li style="float:left;margin:3px 6px;opacity:0.8;font-family:'Arial';color:#565656;font-size:14px;">
+                <input type="checkbox" name="tag" data-id="${arr[i].id}"> ${arr[i].name}
+            </li>`
+                        }
+                        $(".tags .taginfo ul").append(dom)
+                    }else{
+                        //登录失败
+                        // console.log("failed")
+                        $("#msg").html(data.message)
+                    }
+                },
+            });
+
+            $(".save").click(function(){
+                post_data("1")
+            })
+
+            $(".submit").click(function(){
+               post_data("0")
+            })
+
+            //review 
+            $(".review").click(function(){
+                var mkd = $("#mkd").val()
+                var title = $("#subject").val()
+                if (mkd.trim()) {
+                    $("#myModal").modal('show')
+                    $.post("/api/blog/review",{
+                        mkd: mkd
+                    },function(data){
+                        $(".modal-body").html(data.content)
+                        
+                        if (!title) {
+                            title ="博客标题"
+                        }
+                        $(".modal-title").html(title)
+                        $('pre').addClass("line-numbers").css("white-space", "pre-wrap");
+                        $('table').addClass('table').addClass('table-bordered').addClass('table-hover').addClass('table-striped')
+                        var sc = document.createElement("script")
+                        sc.setAttribute("src","/statics/js/prism.js")
+                        document.body.appendChild(sc)
+                    })
+                }else{
+                    $.post("/api/blog/review",{
+                        mkd:mkd
+                    },function(data){
+                        if (data.code==2001){
+                            $("#msg").html(data.err_msg)
+                        }
+                    })
+                    
+                }
+            })
+            
+        })
+
+        function post_data(type) {
+            var subject = $("#subject").val()
+            var boxes = $("input[type=checkbox]:checked") 
+            var tags =""
+            $.each(boxes,function(i){
+                var value = $(this).data("id")
+                tags += value
+                //if is last one
+                if (i!=boxes.length-1) {
+                    tags +=" "
+                }
+            })
+            var content = $("#mkd").val()
+            var limit_content = $("#limit_content").val()
+            var cover = $("#avator>img").attr("src") //image cover
+            // console.log(cover)
+            $.ajax({
+                    url: "/api/blog/add",    // 提交到controller的url路径，在本页面就直接用?代替文件名即可，省略文件名，别的页面则需写全路径
+                    cache:false,
+                    type: "post",    // 提交方式
+                    data: {"title": subject,"tags":tags,"content":content,"limit_content":limit_content,"cover":cover,draft:type},  // data为String类型，必须为 Key/Value 格式。
+                    dataType: "json",    // 服务器端返回的数据类型
+                    success: function (data) {    // 请求成功后的回调函数，其中的参数data为controller返回的map,也就是说,@ResponseBody将返回的map转化为JSON格式的数据，然后通过data这个参数取JSON数据中的值
+                        // console.log(data)
+                        if (data.code==200){
+                            //登录成功
+                            location.href='/admin/articles';
+                        }else{
+                            //post失败
+                            // console.log("failed")
+                            $("#msg").html(data.message)
+                        }
+                    },
+             });
+        } 
+    </script>
+    <script src="/statics/js/drag.js"></script>
+    <script src="/statics/js/admin.js"></script>
+</body>
+</html>

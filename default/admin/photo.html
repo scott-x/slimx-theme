@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/statics/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/statics/iconfont/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/reset.css">
+    <link rel="stylesheet" href="/statics/css/custom-pagination.min.css" /><!-- 1.引入css -->
+    <link rel="stylesheet" type="text/css" href="/statics/css/modal.r.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/modal_m.css">
+
+    <link rel="stylesheet" type="text/css" href="/statics/css/admin.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/admin_photo.css">
+    <title>{{ .Title }}</title>
+    <script src="/statics/js/jquery-3.5.0.min.js"></script>
+    <script src="/statics/js/modal_final.js"></script>
+    <script type="text/javascript" src="/statics/js/custom-pagination.min.js"></script><!-- 3.引入js -->
+    <script type="text/javascript" src="/statics/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<!-- header begin -->
+<div class="header">
+    <div class="title"></div>
+    <div class="avator"></div>
+    <div class="logout">
+        <ul>
+            <li class="exit">退出</li>
+        </ul>
+    </div>
+</div>
+<!-- header end -->
+
+<!-- left begin -->
+<div class="left">
+    <ul>
+        <li>
+            <a href="/admin">
+                <span class="iconfont icon-yibiaopan"></span>
+                <span>仪表盘</span>
+            </a>
+        </li>
+        <li >
+            <a href="/admin/write">
+                <span class="iconfont icon-write"></span>
+                <span >写文章</span>
+            </a>
+        </li>
+        <li>
+            <a href="/admin/tags">
+                <span class="iconfont icon-addphoto_icon_biaoqian_normal"></span>
+                <span>标签管理</span>
+            </a>
+        </li>
+        <li>
+            <a href="/admin/articles">
+                <span class="iconfont icon-to-do"></span>
+                <span>文章管理</span>
+            </a>
+        </li>
+        <li class="active">
+            <a href="/admin/photo">
+                <span class="iconfont icon-photo"></span>
+                <span class="active">图片收藏</span>
+            </a>
+        </li>
+        <li>
+            <a href="/admin/setting">
+                <span class="iconfont icon-setting1"></span>
+                <span>系统设置</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- left end -->
+
+<!-- modal-middle start -->
+<div class="sc_modal" id="myModal2">
+    <div class="modal_wrapper">
+        <div class="modal_header">
+            <span class="close_btn">&times;</span>
+            <span class="title"></span>
+        </div>
+        <div class="modal_content">
+            <div class="left-arrow">
+                <span class="iconfont icon-entypoleftopenbig"></span>
+            </div>
+            <div class="box-img">
+
+            </div>
+            <div class="right-arrow">
+                <span class="iconfont icon-entyporightopenbig"></span>
+            </div>
+        </div>
+        <div class="modal_footer">
+            <input type="button" id="btn2">
+            <input type="button" id="btn1">
+        </div>
+    </div>
+</div>
+<!-- modal-middle-end -->
+<!-- right begin -->
+<div class="right">
+    <!-- modal right start -->
+    <div class="modal" id="myModal1">
+        <div class="modal-wrapper">
+            <div class="modal-header">
+                <span class="close-btn" style="margin-right: 7px;">&times;</span>
+                <span class="title"></span>
+            </div>
+            <div class="modal-content1" style="padding: 15px;border:none;">
+                <div id="avator">
+                    <span class="iconfont icon-Cloudupload"></span>
+                    <span class="text">请将图片拖拽到此处</span>
+                </div>
+                <div class="desc">
+                    <span>图片描述:</span>
+                    <input type="text">
+                </div>
+            </div>
+            <div class="modal-footer1" style="font-family: sans-serif;">
+                <input type="button" id="btn2" style="float: left;">
+                <input type="button" id="btn1" style="float: left;">
+            </div>
+        </div>
+    </div>
+    <!-- modal right end -->
+    <!-- Modal -->
+    <div class="modal fade" id="myModala" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">删除图片</h4>
+                </div>
+                <div class="modal-body">
+                    确认要删除吗？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary mdelete">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav">
+        admin/图片收藏 <div class="myAdd"><span class="iconfont icon-add" id="modal-btn"></span>
+        </div>
+        <div class="admin-photo">
+            <div id="mytable">
+            </div>
+            <div id="page" class="page"></div>
+        </div>
+    </div>
+    <!-- right end -->
+    <script src="/statics/js/photo.js"></script>
+    <script src="/statics/js/modal.js"></script>
+    <script>
+        $(function(){
+            $.get("/api/love/pageinfo",{},function(data){
+                var box = new CustomPagination('#page', {
+                    total: data.page,//总页数
+                    count: 6,//显示的页码个数，多余页码会用...代替
+                    changePage: function (pageNum) {//切换页码成功回调
+                        render(pageNum)
+                    }
+                });
+            })
+
+            //render page
+            function render(page) {
+                $.get("/api/loves",{
+                    page:page
+                },function(data){
+                    var loves = data.loves
+                    if (loves.length>0) {
+                        var dom = `
+                  <table class="table table-hover table-stripped">
+                      <tr class="danger">
+                          <th>文件名</th>
+                          <th>描述</th>
+                          <th style="text-align:left;">上传时间</th>
+                          <th style="text-align:center;">删除</td>
+                      </tr>
+                  `
+                        for (var i = 0; i < loves.length; i++) {
+                            var item = loves[i]
+                            dom+=`
+                      <tr>
+                          <td><span class="iconfont icon-image" style="font-size:16px;color:#0FB4CF;"></span>&nbsp;&nbsp;<span style="color:#0077D8;font-size:14px;cursor:pointer;opacity:0.9;" data-lid="${item.lid}" class="img">${item.name}</span></td>
+                          <td style="font-family:'Arial';font-size:16px;color:#444;opacity:0.9;"><input type="text" value="${item.description}" style="display:block;width:100%;outline:none;border:none;font-family:'Arial';color:#565656;padding:3px 0px;background-color:#F1F2F7;border-radius:3px;" data-lid="${item.lid}"/></td>
+                          <td style="font-size:15px;color:#787878;text-align:left;">${item.create_time}</td>
+                          <td style="text-align: center;opacity:0.8;color:#787878;cursor:pointer;"><span class="iconfont icon-delete" data-lid="${item.lid}" style="cursor:pointer;" id="modal-btn2"></span></td>
+                      </tr>
+                    `
+                        }
+                        dom +="</table>"
+                        $("#mytable").html(dom)
+                        //delete
+                        $(".icon-delete").click(function(){
+                            var lid = $(this).data("lid")
+                            $("#myModala").modal('show')
+                            $(".mdelete").click(function(){
+                                $.get("/api/love/delete",{lid:lid},function(data){
+                                    window.location.href="/admin/photo"
+                                })
+                                $("#myModala").modal('hide')
+                            })
+                        })
+                        //show image
+                        $("span.img").click(function(){
+                            //remove src attr
+                            var _lid = $(this).data("lid")
+                            render_img(_lid)
+                            var myModal = $("#myModal2")[0]
+                            myModal.style.display = "block"
+                            var modal = new Modal1(myModal,{
+                                width:"800px",
+                                show_btn1:false,
+                                show_btn2:false,
+                                title:"",
+                                btn1_value: "cancel",
+                                btn2_value: "confirm",
+                                func1: function () {
+                                    console.log("func1")
+                                },
+                                func2:function() {
+                                    console.log("func2")
+                                },
+                            })
+                        })
+                        var before = ""
+                        var after = ""
+                        //update desc
+                        $("table input").focus(function(){
+                            before = $(this).val()
+                            $(this).css("border","1px solid #ccc")
+                        })
+
+                        $("table input").blur(function(){
+                            after = $(this).val()
+                            if (before!=after) {
+                                //update desc
+                                $.get("/api/love/update_desc",{
+                                    lid: $(this).data("lid"),
+                                    desc:after
+                                },function(data){
+
+                                })
+                            }
+                            $(this).css("border","none")
+                        })
+                    }
+                })
+            }
+
+            //click next
+            $("#myModal2 .modal_content .right-arrow span").click(function(){
+                var _lid = $("#myModal2 .modal_content img").data("lid")
+                $.get("/api/love/next_lid", {lid:_lid},function(data){
+                    var new_lid = data.lid
+                    if (new_lid!=""){
+                        $("#myModal2 .modal_content .left-arrow span").css({"background-color":"#fff","color":"#333"})
+                        render_img(new_lid)
+                    }else{
+                        $("#myModal2 .modal_content .right-arrow span").css({"background-color":"#F5F5F5","color":"#ACA899"})
+                    }
+                })
+            })
+
+            $(document).keydown(function(e){
+                // console.log(e.keyCode)
+                if (e.keyCode==37){
+                    setTimeout(function (){},200)
+                    var _lid = $("#myModal2 .modal_content img").data("lid")
+                    $.get("/api/love/prev_lid", {lid:_lid},function(data){
+                        var new_lid = data.lid
+                        if (new_lid!=""){
+                            $("#myModal2 .modal_content .right-arrow span").css({"background-color":"#fff","color":"#333"})
+                            render_img(new_lid)
+                        }else {
+                            $("#myModal2 .modal_content .left-arrow span").css({"background-color":"#F5F5F5","color":"#ACA899"})
+                        }
+                    })
+                }
+                if (e.keyCode==39){
+                    setTimeout(function (){},200)
+                    var _lid = $("#myModal2 .modal_content img").data("lid")
+                    $.get("/api/love/next_lid", {lid:_lid},function(data){
+                        var new_lid = data.lid
+                        if (new_lid!=""){
+                            $("#myModal2 .modal_content .left-arrow span").css({"background-color":"#fff","color":"#333"})
+                            render_img(new_lid)
+                        }else{
+                            $("#myModal2 .modal_content .right-arrow span").css({"background-color":"#F5F5F5","color":"#ACA899"})
+                        }
+                    })
+                }
+            })
+            //click prev
+            $("#myModal2 .modal_content .left-arrow span").click(function(){
+                var _lid = $("#myModal2 .modal_content img").data("lid")
+                $.get("/api/love/prev_lid", {lid:_lid},function(data){
+                    var new_lid = data.lid
+                    if (new_lid!=""){
+                        $("#myModal2 .modal_content .right-arrow span").css({"background-color":"#fff","color":"#333"})
+                        render_img(new_lid)
+                    }else {
+                        $("#myModal2 .modal_content .left-arrow span").css({"background-color":"#F5F5F5","color":"#ACA899"})
+                    }
+                })
+            })
+
+            function render_img(lid){
+                $.get("/api/love/src", {lid:lid},function(data){
+                    var src = data.src
+                    var temp = `<img src="${src}" alt="" data-lid="${lid}" style="max-width:700px;max-height:565px;"> `
+                    $("#myModal2 .modal_content .box-img").html(temp)
+                    $("#myModal2 .modal_header span.title").html(data.des)
+                })
+            }
+            document.querySelector("#modal-btn").onclick = function () {
+                var myModal = document.querySelector("#myModal1")
+                myModal.style.display = "block"
+                var modal = new Modal(myModal,{
+                    show_btn1:true, //btn1 是否可见
+                    show_btn2:true, //btn2 是否可见
+                    title:"上传图片", //title
+                    btn1_value: "取消", //btn1 name
+                    btn2_value: "确认", //btn2 name
+                    func1: function () {
+                        //when clicked btn1, func1 will be execute
+                        console.log("func1")
+                    },
+                    func2:function() {
+                        //when clicked btn2, func2 will be execute
+                        console.log("func2")
+                        $.ajax({
+                            url:"/api/love/upload",
+                            cache:false,
+                            type:"post",
+                            data:{
+                                base64:$("#avator img").attr("src"),
+                                desc:$(".desc input").val()
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                window.location.href="/admin/photo"
+                            },
+                            //失败回调
+                            error: function(XMLHttpRequest, textStatus, errorThrown){
+                                //查看错误信息
+                                alert(XMLHttpRequest.status);
+                                alert(XMLHttpRequest.readyState);
+                                alert(textStatus);
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    </script>
+    <script src="/statics/js/admin.js"></script>
+</body>
+</html>

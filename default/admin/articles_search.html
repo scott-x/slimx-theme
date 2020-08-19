@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <link rel="stylesheet" type="text/css" href="/statics/font-awesome/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="/statics/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/statics/iconfont/iconfont.css">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700,900|Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'> -->
+    <link rel="stylesheet" type="text/css" href="/statics/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/admin.css">
+    <link rel="stylesheet" href="/statics/css/custom-pagination.min.css" /><!-- 1.引入css -->
+    <link rel="stylesheet" type="text/css" href="/statics/css/admin_article.css">
+    <!-- <link rel="stylesheet" href="/statics/upload/dist/css/dropify.min.css"> -->
+    <title>{{ .Title }}</title>
+    <script src="/statics/js/jquery-3.5.0.min.js"></script>
+    <script type="text/javascript" src="/statics/js/custom-pagination.min.js"></script><!-- 3.引入js -->
+    <script src="/statics/bootstrap/js/bootstrap.min.js"></script>
+    <!-- <script type="text/javascript" src="/statics/bootstrap/js/bootstrap.min.js"></script> -->
+</head>
+<body>
+    <!-- header begin -->
+    <div class="header">
+        <div class="title"></div>
+        <div class="avator"></div>
+        <div class="logout">
+            <ul>
+                <li class="exit">退出</li>
+            </ul>
+        </div>
+    </div>
+    <!-- header end -->
+
+    <!-- left begin -->
+    <div class="left">
+        <ul>
+            <li>
+                <a href="/admin">
+                    <span class="iconfont icon-yibiaopan"></span>
+                    <span>仪表盘</span>
+                </a>
+            </li>
+            <li >
+                <a href="/admin/write">
+                    <span class="iconfont icon-write"></span>
+                    <span >写文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/tags">
+                    <span class="iconfont icon-addphoto_icon_biaoqian_normal"></span>
+                    <span>标签管理</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="/admin/articles">
+                    <span class="iconfont icon-to-do"></span>
+                    <span class="active">文章管理</span>
+                </a>
+            </li>
+             <li>
+                <a href="/admin/photo">
+                    <span class="iconfont icon-photo"></span>
+                    <span>图片收藏</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/setting">
+                    <span class="iconfont icon-setting1"></span>
+                    <span>系统设置</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- left end -->
+    
+    <!-- right begin -->
+    <div class="right">
+        <div class="nav">
+            admin/articles/search  
+            <div class="my-search">
+                <span id="search">搜搜</span>
+                <input type="text"  placeholder="请输入标题关键字">
+            </div>
+        </div>
+        <div class="info">
+        </div>
+        <div id="page" class="page" style="margin-top: 50px;"></div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Warning</h4>
+              </div>
+              <div class="modal-body">
+                <p>确认要删除吗?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary confirm">确认</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </div>
+    <!-- right end -->
+    <script>
+         $(function(){
+            function render(page_num,title) {
+                $.ajax({
+                    url: "/api/articles",   
+                    cache:false,
+                    type: "get",    // 提交方式
+                    data: {"page_num":page_num,"title":title},  // data为String类型，必须为 Key/Value 格式。
+                    dataType: "json",    // 服务器端返回的数据类型
+                    success: function (data) {    
+                       if (data.code==200) {
+                        var dom = `
+                         <table class="gridtable table table-bordered table-hover table-striped">
+                            <tr class="danger">
+                                <td>ID</td>
+                                <td>标题</td>
+                                <td>阅读</td>
+                                <td>标签</td>
+                                <td>创建时间</td>
+                                <td>详情</td>
+                                <td>删除</td>
+                                <td>发布</td>
+                            <tr>`
+                        var articles = data.articles
+                        articles.forEach(i=>{
+                            dom += `
+                            <tr>
+                                <td class='mybid'>${i.id}</td>
+                                <td style="color:#333;font-size:16px;font-family:'arial';">${i.title}</td>
+                                <td style="color:#565656;">${i.see}</td>
+                                <td style="color:#676767;font-size:16px;">${i.tags}</td>
+                                <td style="color:#787878;font-size:15px;">${i.create_time}</td>
+                                <td style="text-align:center;">
+                                    <a href="/admin/detail?bid=${i.bid}">
+                                        <span class="iconfont icon-icon_details" style="display:block;font-weight:bold;font-size:18px;opacity:0.8;margin-top:1px;color:#476FD7;"></span>
+                                    </a>
+                                </td>
+                                <td style="text-align:center;">
+                                    <span class="iconfont icon-delete2 delete" data-bid="${i.bid}" style="display:block;font-weight:bold;font-size:16px;opacity:0.8;color:#EE3F6F;"></span>
+                                </td>
+                                <td>
+                                    <div class="my-switch" style="width:62px;height:24px;border-radius:13px;padding:1px;margin:0 auto;border:none;">
+                                            <div class="${i.status=='0'?'icon-on':'icon-off'}" style="width:62px;">
+                                            <div class="circle" data-id="${i.id}" style="width:18px;height:18px;background:#E7E7E7;border-radius:50%;position:relative;left:${i.status=='0'?'3px':'-3px'};top:3px;"></div>
+                                            <div class="text" style="position:relative;height:24px;line-height:24px;color:#fff;font-weight:bold;font-size:14px;">${i.status=='0'?'ON':'OFF'}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                            <tr>
+                            `
+                        })    
+                        dom +=" </table>"
+                       }
+                       if (articles.length!=0) {
+                        $(".info").html(dom) 
+                       }  
+
+                       $(".delete").click(function(){
+                        $('#myModal').modal('show')
+                        var bid = $(this).data("bid")
+                        deletByBid(bid)
+                       })
+
+                       $(".my-switch .circle").click(function(){
+                           var id = $(this).data("id")
+                        
+                           //ajax
+                            $.ajax({
+                                url:"/api/blog/update_status",
+                                cache:false,
+                                type: "get",    // 提交方式
+                                data: {id:id},  // data为String类型，必须为 Key/Value 格式。
+                                dataType: "json",    // 服务器端返回的数据类型
+                                success: function(data) {
+                                    // console.log(data)
+                                }
+
+                            })
+                            var father = $(this).parent()
+                           
+                            var className = father.attr("class")
+                            father.attr("class",className=="icon-on"?"icon-off":"icon-on")
+                            className = father.attr("class")
+                            var text = $(this).prev()
+
+                            if (text.length==0) {
+                                text = $(this).next()
+                            }
+
+                            if (className=="icon-off") {
+                                text[0].style.left = "0px"
+                            }
+                            
+                            if (className=="icon-on") {
+                                text[0].style.left = "0px"
+                            }
+                            var f_text = text[0].style.left
+                            var f_circle = $(this)[0].style.left
+                            text[0].style.left = f_text=='6px'?'-1px':'0px'
+                            $(this)[0].style.left = f_circle=='-3px'?'3px':'-3px'
+                           
+                            text.html(text.html()=="ON"?"OFF":"ON")
+                            return false  
+                       })     
+                       
+                            
+                    },
+                });
+            }
+            
+            var search = window.location.search
+            var title = search.split("?title=")[1]
+
+            $.get("/api/blog/pages",{"title":title},function(data){
+                var pages = data.pages
+                if (pages!=0) {
+                    var box = new CustomPagination('#page', {
+                            total: pages,//总页数
+                            count: 6,//显示的页码个数，多余页码会用...代替
+                            changePage: function (pageNum) {//切换页码成功回调
+                              render(pageNum,title)
+                         }
+                    });
+                }else {
+                    var dom = `<div style="text-align:center;"><img src="/uploads/sorry.png" alt="scott-x" style="margin-top:10px"/></div>`
+                    $(".info").html(dom) 
+                }
+            })
+
+            $(".my-search #search").click(function(){
+                window.location.href = "/admin/article/search?title="+$(".my-search input").val()
+            })
+
+            $(".my-search input").keydown(function(e){
+              if (e.keyCode == 13) {
+                 window.location.href = "/admin/article/search?title="+$(".my-search input").val()
+              }
+            })
+                  
+           function deletByBid(bid){
+             $('.btn-primary').click(function(){
+                  $.ajax({
+                      url: "/api/delete?bid="+bid,   
+                      cache:false,
+                      type: "get",    // 提交方式
+                      data: {},  // data为String类型，必须为 Key/Value 格式。
+                      dataType: "json",    // 服务器端返回的数据类型
+                      success: function (data) {    
+                         window.location.href="/admin/articles"
+                      },
+                  });
+                  $('#myModal').modal('hide')
+             })
+           }            
+           
+        })
+    </script>
+    <script src="/statics/js/admin.js"></script>
+</body>
+</html>

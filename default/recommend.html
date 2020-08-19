@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="/statics/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/detail.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/recommend.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/footer.css">
+   	<script src="/statics/js/jquery-3.5.0.min.js"></script>
+    <title>推荐</title>
+</head>
+<body>
+	<!-- header begin -->
+	<div class="header">
+		<div class="nav">
+			<ul>
+				<a href="/" ><li class="active">首页</li></a>
+				<a href="/recommend"><li>推荐</li></a>
+				<a href="/about"><li>关于</li></a>
+			</ul>
+		</div>
+		
+	</div>
+    <!-- header end -->
+
+    <!-- body begin -->
+	<div class="body">
+		<!-- show content -->
+		<div class="content">
+			recommend
+		</div>
+		
+	</div>
+    <!-- body end -->
+
+     <!-- fotter begin -->
+	<div class="myfooter">
+		<div class="copyright">
+			    <div class="info"></div>
+		</div>
+	</div>
+	<!-- footer end -->
+	<script>
+		$(function(){
+			    var storage = window.localStorage
+				//init setting
+			    function init() {
+			        var setting=storage.getItem("setting")
+			        if (!setting){
+			            $.get("/api/blog/get_setting",{},function(data){
+			                setting = data.setting 
+			                storage.setItem("setting",JSON.stringify(data.setting));
+			            })
+			        }else {
+			            setting=JSON.parse(setting)
+			        }
+			        
+			        var github_url = setting.github
+			        var last = github_url.lastIndexOf("/")
+			        var github_name = github_url.substring(last+1)
+			        //render dom
+			        $(".copyright .info").html(`<p>Copyright © 2020 <a href="${github_url}">${github_name}</a>. All rights reserved.</p>`)
+			        
+			    }
+			    init()
+		})
+	</script>
+</body>
+</html>

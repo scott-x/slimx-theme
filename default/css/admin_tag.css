@@ -1,0 +1,65 @@
+.admin-tag {
+	padding-left: 15px;
+	margin-top: 10px;
+	padding-right: 15px;
+}
+span.iconfont:hover{
+	cursor: pointer;
+}
+
+.right .myAdd {
+	display: inline;
+	color: #f60;
+}
+
+table tr th,table tr td {
+	text-align: center;
+}
+
+.modal-body #color {
+	width: 480px;
+	margin: 0 auto;
+}
+
+#color .box {
+	height: 26px;
+	width: 480px;
+	margin-bottom: 10px;
+}
+
+.modal-body #color .box .title {
+	width: 80px;
+	text-align: right;
+	font-family: "Arial";
+	float: left;
+	height: 26px;
+	line-height: 26px;
+}
+
+.modal-body #color .box .name {
+	width: 380px;
+	float: left;
+}
+
+.modal-body #color .box .name input{
+	outline: none;
+	border:1px solid #ccc;
+	border-radius: 3px;
+	font-size: 13px;
+}
+
+.modal-body #color .box .name input[type='text'] {
+	padding-left: 10px;
+	width: 320px;
+}
+
+input[type='color'] {
+	width: 30px;
+}
+.modal-footer {
+	clear: both;
+}
+
+ input[readonly]{
+    background-color: #EEEEEE !important;
+ }

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ .Title }}</title>
+    <link rel="stylesheet" type="text/css" href="/statics/iconfont/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="/statics/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/reset.css">
+    <link rel="stylesheet" href="/statics/css/custom-pagination.min.css" />
+    <link rel="stylesheet" type="text/css" href="/statics/css/footer.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/home.css">
+    <script src="/statics/js/jquery-3.5.0.min.js"></script>
+    <script type="text/javascript" src="/statics/js/custom-pagination.min.js"></script>
+    <script type="text/javascript" src="/statics/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="my-container">
+			<!-- header begin -->
+			<div class="header">
+				<div class="nav">
+					<ul class="l">
+						<a href="/" ><li class="active">首页</li></a>
+						<a href="/recommend"><li>推荐</li></a>
+						<a href="/about"><li>关于</li></a>
+					</ul>
+					
+				</div>
+				
+			</div>
+		    <!-- header end -->
+		    <!-- body begin -->
+			<div class="body">
+				<!-- show content -->
+				<div class="blog_content">
+					<!-- left -->
+					<div class="blog_left">
+						<div class="info section">
+							<div class="ivator">
+							</div>
+							<table>
+								<tr>
+									<td>原创</td>				
+									<td>粉丝</td>				
+									<td>获赞</td>				
+									<td>评论</td>				
+									<td>访问</td>				
+								</tr>
+								<tr>
+									<td>360</td>
+									<td>125</td>
+									<td>1049</td>
+									<td>201</td>
+									<td>181k</td>
+								</tr>
+							</table>
+						</div>
+
+						<div class="action section">
+							<button class="btn btn-warning">关注</button>
+							<button class="btn btn-default">私信</button>
+						</div>
+
+					    <div class="search">
+					    	<input type="text"> <span id="mysearch">搜搜看</span>
+					    </div>
+					</div>
+					<!-- left end -->
+					<!-- right -->
+					<div class="blog_right">
+						<div class="items">
+						</div>
+						<div id="page" class="page"></div>
+						<!-- page -->
+					</div>
+					<!-- right -->
+				</div>
+
+			</div>
+		    <!-- body end -->
+
+		    <!-- fotter begin -->
+			<div class="myfooter">
+				<div class="copyright">
+					    <div class="info">
+					    </div>
+				</div>
+			</div>
+		</div>
+			<!-- footer end -->
+			<script type="text/javascript">
+				$(function(){
+					var storage = window.localStorage
+
+					//init setting
+					function init() {
+						var setting=storage.getItem("setting")
+						if (!setting){
+						    $.get("/api/blog/get_setting",{},function(data){
+						    	setting = data.setting 
+								storage.setItem("setting",JSON.stringify(data.setting));
+						    })
+						}else {
+							setting=JSON.parse(setting)
+						}
+
+				    	var nickname = setting.nickname
+				    	var avator = setting.avator
+				    	var github_url = setting.github
+				    	var last = github_url.lastIndexOf("/")
+				    	var github_name = github_url.substring(last+1)
+				    	//render dom
+                        $(".blog_left .ivator").html(`<img src="${avator}"> <span>${nickname}</span>`)
+                        $(".copyright .info").html(`<p>Copyright © 2020 <a href="${github_url}">${github_name}</a>. All rights reserved.</p>`)
+					    
+					}
+					init()
+
+					var search = window.location.search
+					var title = search.split("?title=")[1]
+ 					
+		            $.get("/api/blog/search_page",{"title":title},function(data){
+		            	var box = new CustomPagination('#page', {
+		            	     total: data.pages,//总页数
+		            	     count: 6,//显示的页码个数，多余页码会用...代替
+		            	     changePage: function (pageNum) {//切换页码成功回调
+		            	       render(pageNum,title)
+		            	     }
+		            	});
+		            })
+					
+					//search
+                    $("#mysearch").click(function(){
+						var title = $(".search input").val()
+						if (title!="") {
+							window.location.href = encodeURI("/search?title="+title)
+						}
+                    })
+
+                    $(".search input").keydown(function(e){
+                    	if (e.keyCode == 13) {
+                    		var title = $(".search input").val()
+                    		if (title!="") {
+								window.location.href = encodeURI("/search?title="+title)
+							}
+                    	}
+                    })
+
+		            function render(current_page,title) {
+        				$.get("/api/blog/search",{"page":current_page,"title":title},function(result){
+	        	            var blogs = result.blogs
+	        	            var dom_item =""
+        	                if (blogs.length) {
+		    	              	for (var i = 0; i < blogs.length; i++) {
+		    	              		 var create_time = blogs[i].create_time.split(" ")[0]
+		    	              		 // console.log(blogs[i])	
+		    	              		 dom_item +=`<div class="item">
+		    							<div class="left_image">
+		    								<img src="${blogs[i].cover}" style="width:97px;height:97px;">
+		    							</div>
+		    							<div class="right_content">
+		    								<div class="title"><a href="/detail?id=${blogs[i].bid}">${blogs[i].title}</a></div>
+		    								<p class="des">
+		    								${blogs[i].limit_content}
+		    							    </p>
+		    							    <div class="meta">
+		    							    	 <span class="iconfont icon-Generalcalendar-"></span> &nbsp;${create_time}&nbsp;&nbsp;
+		    							    	 <span class="iconfont icon-see"></span>&nbsp;${blogs[i].see}&nbsp;&nbsp;
+		    							    	 <span class="iconfont icon-method-draw-image" style="position:relative;top:2px;"></span>&nbsp;${blogs[i].comment}
+		    							    	 <i class="fa fa-calendar"></i>
+
+		    							    	 <i class="fa fa-eye"></i>
+
+		    							    	 <i class="fa fa-comment"></i>
+		    							    </div>
+		    							</div>	
+		    						</div>`	
+		    	              	}
+		    	              }else {
+          	              		 dom_item +=`<img src="/uploads/no-data.png" style="width:705px" alt=""/>`
+		    	              }
+		    	              $(".blog_right .items").html(dom_item)
+        	            });
+		            }
+				})
+			</script>
+</body>
+</html>

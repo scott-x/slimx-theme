@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <link rel="stylesheet" type="text/css" href="/statics/font-awesome/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="/statics/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/statics/iconfont/iconfont.css">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700,900|Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'> -->
+    <link rel="stylesheet" type="text/css" href="/statics/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/admin.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/prism.css">
+    <link  type="text/css" href="/statics/themes/prism-vs-dark-plus.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/admin_write.css">
+    <!-- <link rel="stylesheet" href="/statics/upload/dist/css/dropify.min.css"> -->
+    <title>{{ .Title }}</title>
+    <script src="/statics/js/jquery-3.5.0.min.js"></script>
+    <script type="text/javascript" src="/statics/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <!-- header begin -->
+    <div class="header">
+        <div class="title"></div>
+        <div class="avator"></div>
+        <div class="logout">
+            <ul>
+                <li class="exit">退出</li>
+            </ul>
+        </div>
+    </div>
+    <!-- header end -->
+
+    <!-- left begin -->
+    <div class="left">
+        <ul>
+             <li>
+                <a href="/admin">
+                    <span class="iconfont icon-yibiaopan"></span>
+                    <span>仪表盘</span>
+                </a>
+            </li>
+            <li >
+                <a href="/admin/write">
+                    <span class="iconfont icon-write"></span>
+                    <span >写文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/tags">
+                    <span class="iconfont icon-addphoto_icon_biaoqian_normal"></span>
+                    <span>标签管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/articles">
+                    <span class="iconfont icon-to-do"></span>
+                    <span>文章管理</span>
+                </a>
+            </li>
+             <li>
+                <a href="/admin/photo">
+                    <span class="iconfont icon-photo"></span>
+                    <span>图片收藏</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/setting">
+                    <span class="iconfont icon-setting1"></span>
+                    <span>系统设置</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- left end -->
+    
+    <!-- right begin -->
+    <div class="right">
+        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="myModal" >
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="gridSystemModalLabel" style="font-weight: bold;"></h4>
+              </div>
+              <div class="modal-body">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <div class="mypost">
+            <div class="nav">
+                admin/detail
+            </div>
+            <div id="post">
+                <div class="subject">
+                    <div class="text">
+                        标题: 
+                    </div>  
+                    <div class="input">
+                        <input type="text" id="subject">
+                        <input type="hidden" class="hidden">
+                    </div>  
+                </div>
+                <div class="subject">
+                    <div class="text">简介:</div>
+                    <div id="bref_introduction">
+                        <textarea  id="limit_content" ></textarea>
+                    </div>  
+                    <div id="avator">
+                        <span class="iconfont icon-Cloudupload"></span>
+                        <span class="text">drop upload</span>
+                    </div>
+                </div>
+                <div class="tags subject clear">
+                    <div class="info text">标签:</div>
+                    <div class="taginfo">
+                        <ul>
+                            
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="subject clear">
+                    <div class="text">
+                        博客:
+                    </div>
+                    <div class='mkd' >
+                        <textarea id="mkd"></textarea>
+                    </div>
+                </div>
+
+                <div id="action" class="subject">
+                    <button type="button" class="btn btn-success review">预览</button>
+                    <button class="btn btn-primary submit">update</button>
+                </div>
+                <div class="subject err">
+                    <span id="msg"></span>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- right end -->
+    <script type="text/javascript">
+        $(function(){
+            //
+            var href = window.location.href
+    
+            $.ajax({
+                url: "/api/detail?"+href.split("?")[1],    // 提交到controller的url路径，在本页面就直接用?代替文件名即可，省略文件名，别的页面则需写全路径
+                cache:false,
+                type: "get",    // 提交方式
+                data: {},  // data为String类型，必须为 Key/Value 格式。
+                dataType: "json",    // 服务器端返回的数据类型
+                success: function (data) {    
+                    if (data.code==200) {
+                        var detail = data.detail
+                        
+                        $("#subject").val(detail.title)
+                        $("#limit_content").val(detail.limit_content)
+                        $("#mkd").val(detail.raw)
+                        $("input.hidden").val(detail.bid)
+                        var check_num = detail.tid
+                        var avator = document.getElementById('avator')
+                         while(avator.hasChildNodes()){
+                            avator.removeChild(avator.firstChild); 
+                         }
+                         var img = document.createElement("img");
+                         avator.appendChild(img);
+                         var src= detail.cover
+                         if (src[0] != "/") {
+                           img.src = "/"+detail.cover
+                         }else {
+                            img.src = detail.cover
+                         } 
+
+                         renderCheckBox(check_num)  
+                    }
+                },
+            });
+            
+            //render check box
+            function renderCheckBox(check_num) {
+                $.ajax({
+                    url: "/api/tags",    // 提交到controller的url路径，在本页面就直接用?代替文件名即可，省略文件名，别的页面则需写全路径
+                    cache:false,
+                    type: "get",    // 提交方式
+                    data: {},  // data为String类型，必须为 Key/Value 格式。
+                    dataType: "json",    // 服务器端返回的数据类型
+                    success: function (data) {    // 请求成功后的回调函数，其中的参数data为controller返回的map,也就是说,@ResponseBody将返回的map转化为JSON格式的数据，然后通过data这个参数取JSON数据中的值
+                        var arr = data.tags
+                        if (data.code==200){
+                            //登录成功
+                            var dom = ""
+                            var j = []
+                            if (check_num=="") {
+                           
+                            }else if (check_num.indexOf(" ")>-1) {
+                                var check_arr = check_num.split(" ")
+                                for (var i = 0; i < check_arr.length; i++) {
+                                      j.push(Number(check_arr[i]))
+                                }
+                            }else{
+                                j.push(Number(check_num))
+                            }
+
+                            for (var i = 0; i <= arr.length - 1; i++) {
+                                var flag = false
+                                for (var x = 0; x < j.length; x++) {
+                                   if (arr[i].id== j[x]) {
+                                        flag = true
+                                        dom += `
+                                        <li style="float:left;margin:3px 6px;opacity:0.8;font-family:'Arial';color:#565656;font-size:14px;">
+                                            <input type="checkbox" name="tag" checked data-id="${arr[i].id}"> ${arr[i].name}
+                                        </li>`
+                        
+                                   }
+
+                                }
+
+                               if (!flag) {
+                                dom += `
+                                <li style="float:left;margin:3px 6px;opacity:0.8;font-family:'Arial';color:#565656;font-size:14px;">
+                                    <input type="checkbox" name="tag" data-id="${arr[i].id}"> ${arr[i].name}
+                                </li>`
+                               }
+                                
+                            }
+                            $(".tags .taginfo ul").append(dom)
+                        }else{
+                            //登录失败
+                            // console.log("failed")
+                            $("#msg").html(data.message)
+                        }
+                    },
+                });
+
+            }
+
+            //submit
+            $(".submit").click(function(){
+                var title = $("#subject").val()
+                var bid = $("input.hidden").val()
+                var limit_content= $("#limit_content").val()
+                var content = $("#mkd").val()
+                var cover = $("#avator>img").attr("src")
+                var boxes = $("input[type=checkbox]:checked") 
+                var tid =""
+                $.each(boxes,function(i){
+                    var value = $(this).data("id")
+                    tid += value
+                    //if is last one
+                    if (i!=boxes.length-1) {
+                        tid +=" "
+                    }
+                })
+                
+                //tid, cover, title, limit_content, content, bid
+                $.ajax({
+                    url: "/api/blog_update",    // 提交到controller的url路径，在本页面就直接用?代替文件名即可，省略文件名，别的页面则需写全路径
+                    cache:false,
+                    type: "post",    // 提交方式
+                    data: {
+                        tid:tid,
+                        cover:cover,
+                        title:title,
+                        limit_content:limit_content,
+                        content:content,
+                        bid:bid
+                    },  // data为String类型，必须为 Key/Value 格式。
+                    dataType: "json",    // 服务器端返回的数据类型
+                    success: function(data) {
+                       window.location.href = "/admin/articles"
+                    },
+                })
+
+            })
+
+            //review 
+            $(".review").click(function(){
+                var mkd = $("#mkd").val()
+                var title = $("#subject").val()
+                if (mkd.trim()) {
+                    $("#myModal").modal('show')
+                    $.post("/api/blog/review",{
+                        mkd: mkd
+                    },function(data){
+                        $(".modal-body").html(data.content)
+                        
+                        if (!title) {
+                            title ="博客标题"
+                        }
+                        $(".modal-title").html(title)
+                        $('pre').addClass("line-numbers").css("white-space", "pre-wrap");
+                        $('table').addClass('table').addClass('table-bordered').addClass('table-hover').addClass('table-striped')
+                        var sc = document.createElement("script")
+                        sc.setAttribute("src","/statics/js/prism.js")
+                        document.body.appendChild(sc)
+                    })
+                }else{
+                    $.post("/api/blog/review",{
+                        mkd:mkd
+                    },function(data){
+                        if (data.code==2001){
+                            $("#msg").html(data.err_msg)
+                        }
+                    })
+                    
+                }
+            })
+        })
+    </script>
+    <script src="/statics/js/drag.js"></script>
+    <script src="/statics/js/admin.js"></script>
+</body>
+</html>

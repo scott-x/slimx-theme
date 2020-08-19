@@ -1,0 +1,283 @@
+body {
+	background: #F5F6F7;
+}
+
+button{
+	outline-style: none;
+}
+.header{
+    background: #CF4141;
+    color: #fff;
+    font-family: "Arial";
+    height: 40px;
+    /*border: 1px solid #ccc;*/
+}
+.header .nav {
+	width: 1000px;
+	margin: 0 auto;
+	max-width: 1000px;
+}
+.header .nav .search {
+	float: left;
+	width: 300px;
+	height: 40px;
+	font-family: "Arial",sans-serif;
+	font-size: 14px;
+}
+
+.header ul.l {
+	height: 40px;
+	float: left;
+}
+.header ul.l li {
+	list-style: none;
+	display: inline-block;
+	height: 40px;
+	line-height: 40px;
+	padding: 0 20px;
+	margin-left: -3px;
+	float: left;
+}
+
+.header ul.r {
+	height: 40px;
+}
+.header ul.r li {
+	list-style: none;
+	display: inline-block;
+	height: 40px;
+	line-height: 40px;
+	padding: 0 20px;
+	margin-left: -3px;
+	float: right;
+}
+
+a {
+	text-decoration: none;
+}
+
+.header .nav ul a {
+	color: #fff;
+}
+
+.blog_left .search {
+	margin-top: 10px;
+	font-family: sans-serif,"Arial";
+	font-size: 13px;
+}
+
+.blog_left .search input {
+	padding: 3px 10px;
+	border-radius: 3px;
+	outline: none;
+	border: 1px solid #ccc;
+	color: #565656;
+	width: 232px;
+}
+.blog_left .search span {
+	border: 1px solid #ccc;
+	padding: 3px 10px;
+	border-radius: 3px;
+	background: #CF4141;
+	color: #fff;
+	font-size: 12px;
+	cursor: pointer;
+	opacity: 0.8;
+}
+.blog_right {
+	width: 700px;
+	padding-top: 5px;
+	float: right;
+}
+.blog_right .items .item a {
+	color: #666;
+}
+
+.latest>div a {
+	color: #777;
+	text-decoration: none;
+}
+
+.latest .title .shape{
+	width: 4px;
+	background: #CA0E16;
+	display: inline-block;
+	height: 30px;
+	margin-right: 8px;
+}
+
+.latest .title span {
+	position: relative;
+	top: -10px;
+	color: #484848;
+	font-size: 14px;
+	font-family: "Arial";
+	font-weight: bold;
+}
+ul li:hover{
+	background: #C2362C;
+}
+.header .nav ul li.active {
+	background: #C2362C;
+	font-size: 20px;
+}
+
+.personal_info {
+	background: #232E3C;
+	height: 100px;
+	color: #fff;
+	font-family: "Arial";
+	font-weight: bold;
+	font-size: 20px;
+}
+.personal_info .motto{
+	width: 80%;
+	max-width: 1300px;
+	margin: 0 auto;
+	line-height: 100px;
+	height: 100px;
+}
+.blog_content{
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.blog_content .blog_left {
+	width: 295px;
+	float:left;
+	box-sizing: border-box;
+}
+
+.section {
+	width: 295px;
+	background: #fff;
+	border: 1px solid #ccc;
+	padding: 15px;
+}
+
+.blog_content .blog_left .ivator img{
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+}
+
+.blog_content .blog_left .ivator span {
+	color: #f60;
+	font-family: "Arial";
+	font-weight: bold;
+}
+
+.blog_content .blog_left .info table {
+	margin-top: 20px;
+}
+
+.blog_content .blog_left .info table tr td {
+	padding: 7px;
+}
+
+.blog_content .blog_left .info table tr:first-child{
+	color: #383838;
+}
+
+.blog_content .blog_left .info table tr:last-child{
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.blog_content .blog_left .latest .article {
+	font-family: "Arial";
+	font-size: 14px;
+	box-sizing: border-box;
+}
+
+.blog_content .blog_left .latest .article ul li {
+	margin: 10px 0 10px 0;
+	color: #525252;
+	padding: 5px;
+}
+
+.blog_content .blog_left .latest .article ul li:hover{
+	background: #ccc;
+	color: #fff;
+	text-decoration: none;
+}
+
+.blog_right {
+	width: 700px;
+}
+
+.blog_right .items .item {
+	height: 100px;
+}
+
+.blog_right .items .item .left_image{
+	float: left;
+	width: 100px;
+	height: 100px;
+	/*background: green;*/
+}
+.blog_right .items .item .left_image img {
+	width: 100px;
+	height: 100px;
+	border-radius: 3px;
+}
+
+.blog_right .items {
+	float:right;
+}
+
+.blog_right .items .item {
+	/*background: red;*/
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	margin: 0 0 10px 0px;
+	box-sizing: border-box;
+}
+.blog_right .items .item .right_content{
+	float: left;
+	/*background: red;*/
+	width: 595px;
+	padding: 10px;
+	font-family: "Arial";
+	position: relative;
+}
+
+.blog_right .items .item .right_content .title{
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.blog_right .items .item .right_content .title a {
+	color: #D0393F;
+}
+
+.blog_right .items .item .right_content .des{
+	color: #787878;
+	margin-top: 10px;
+	font-family: "Arial";
+	font-size: 14px;
+	line-height: 20px;
+}
+
+.blog_right .items .item .right_content .meta{
+	color: #787878;
+	position: absolute;
+	top: 78px;
+	left: 10px;
+	font-size: 14px;
+}
+
+#page{
+	clear: both;
+	width: 100%;
+	height: 50px;
+	position: relative;
+   	top: 10px;
+}
+#page .custom-pagination {
+    width: 100%;
+	margin: 0 auto;
+}
+#page .page-to {
+	width: 170px;
+}

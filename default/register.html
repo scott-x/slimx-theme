@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ .Title }}</title>
+</head>
+<body>
+	<h1>{{ .Title }}</h1>
+	
+		username:<input type="text"  class="username"> <br>
+		password:<input type="password" class="password">
+		<button id="signup">注册</button>
+	</form>
+	 <script src="/statics/js/jquery-3.5.0.min.js"></script>
+	 <script>
+	 	$(function(){
+	 		$("#signup").click(function(){
+	 			var username = $(".username").val()
+	 			var password = $(".password").val()
+	 			$.post("/api/user/signup",{
+	 				"username":username,
+	 				"password":password
+	 			},function(data){
+	 				if (data.msg=="success") {
+	 					window.location.href = "/login"
+	 				}
+	 			})
+	 		})
+	 	})
+	 </script>
+</body>
+</html>

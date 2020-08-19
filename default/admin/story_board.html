@@ -1,0 +1,179 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <link rel="stylesheet" type="text/css" href="/statics/font-awesome/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="/statics/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/statics/iconfont/iconfont.css">
+    <!-- <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,700,900|Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'> -->
+    <link rel="stylesheet" type="text/css" href="/statics/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/admin.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/story_board.css">
+    <!-- <link rel="stylesheet" href="/statics/upload/dist/css/dropify.min.css"> -->
+    <title>{{ .Title }}</title>
+    <script src="/statics/js/jquery-3.5.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <!-- <script type="text/javascript" src="/statics/bootstrap/js/bootstrap.min.js"></script> -->
+</head>
+<body>
+    <!-- header begin -->
+    <div class="header">
+        <div class="title"></div>
+       <div class="avator"></div>
+       <div class="logout">
+           <ul>
+               <li class="exit">退出</li>
+           </ul>
+       </div>
+    </div>
+    <!-- header end -->
+    
+    <!-- left begin -->
+    <div class="left">
+        <ul>
+            <li class="active">
+                <a href="/admin">
+                    <span class="iconfont icon-yibiaopan"></span>
+                    <span class="active">仪表盘</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/write">
+                    <span class="iconfont icon-write"></span>
+                    <span>写文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/tags">
+                    <span class="iconfont icon-addphoto_icon_biaoqian_normal"></span>
+                    <span>标签管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/articles">
+                    <span class="iconfont icon-to-do"></span>
+                    <span>文章管理</span>
+                </a>
+            </li>
+             <li>
+                <a href="/admin/photo">
+                    <span class="iconfont icon-photo"></span>
+                    <span>图片收藏</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/setting">
+                    <span class="iconfont icon-setting1"></span>
+                    <span>系统设置</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- left end -->
+    <!-- right begin -->
+    <div class="right">
+        <div class="nav">
+            admin/仪表盘
+        </div>
+
+        <div class="info">
+         
+        </div>
+        <div class="scott">
+            <canvas id="myChart2" width="210px" height="234px"></canvas>
+        </div>
+        
+        <div class="chart-container" style="position: relative; height:45vh; width:80vw">
+           <canvas id="myChart" ></canvas>
+        </div>
+
+    </div>
+    <!-- right end -->
+    <script>
+        $(function(){
+            $.ajax({
+                url: "/api/getGeneral",   
+                cache:false,
+                type: "get",    // 提交方式
+                data: {},  // data为String类型，必须为 Key/Value 格式。
+                dataType: "json",    // 服务器端返回的数据类型
+                success: function (data) {    // 请求成功后的回调函数，其中的参数data为controller返回的map,也就是说,@ResponseBody将返回的map转化为JSON格式的数据，然后通过data这个参数取JSON数据中的值
+                   var counts_dom =""
+                   var tgs_dom ="<ul>"
+                   var display = []
+                   if (data.code==200) {
+                        var general = data.general
+                        
+                        display[0] = {"name":"草稿","count":general.draft,bg:"gray"}
+                        display[1] = {"name":"公开","count":general.public,bg:"#256BB9"}
+                        display[2] = {"name":"总共","count":general.total,bg:"#f60"}
+                        display[3] = {"name":"标签","count":general.tags_counts,bg:"#25B95B"}
+
+                        var labels_blog = ['草稿','公开']
+                        var backgroundColor_blog = ["gray","#256BB9"]
+                        var data_blog = [general.draft,general.public]
+
+                        display.forEach((i)=>{
+                            counts_dom += `
+                            <div class="item" style="margin-bottom:10px">
+                               <div class="count" style="background:${i.bg}">${i.count}</div>
+                               <div class="name" style="color:#787878;">${i.name}</div>
+                            </div>`
+                        })
+                       
+                       var tags = general.tags
+                       var labels =[]
+                       var backgroundColor = []
+                       var data = []
+                    
+                       for (var i = 0; i < tags.length; i++) {
+                           var item = tags[i]
+                           labels.push(item.name)
+                           backgroundColor.push(item.color)
+                           data.push(Number(item.count))
+                       }
+                       
+                       if (general.public>0) {
+                        if (general.draft>0){
+                            draw('pie','myChart2',labels_blog,backgroundColor_blog,data_blog)
+                        }
+                        
+                        draw('bar','myChart',labels,backgroundColor,data)
+                       }
+                   }
+                   
+                   $(".info").html(counts_dom)
+                },
+            });
+
+        })
+        
+        function draw(T,myid,labels,backgroundColor,data){
+            var ctx = document.getElementById(myid).getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: T,
+
+                // The data for our dataset
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '标签',
+                        backgroundColor: backgroundColor,
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: data
+                    }]
+                },
+
+                // Configuration options go here
+                options: {
+                    responsive:true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+    </script>
+    <script src="/statics/js/admin.js"></script>
+</body>
+</html>

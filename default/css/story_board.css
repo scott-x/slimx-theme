@@ -1,0 +1,69 @@
+.right .info {
+    margin-left: 15px;
+    margin-top: 10px;
+    width:260px;
+    float: left;
+}
+.scott {
+    margin-top: 10px;
+    /*border: 1px solid red;*/
+    height: 240px;
+    width:300px;
+    margin-left: 100px;
+    float: left;
+}
+.chart-container{
+    clear: both;
+}
+
+.right .info .item {
+    border-radius: 8px;
+    width: 100px;
+    height: 130px;
+    color: #fff;
+    float: left;
+    margin-right: 30px;
+}
+.right .info .item .count{
+    width: 100px;
+    height: 100px;
+    float: left;
+    color: #fff;
+    background: red;
+    line-height: 100px;
+    text-align: center;
+    font-size: 35px;
+    border-radius: 2px;
+}
+
+.right .info .item .name{
+    height:30px;
+    width: 100px;
+    float: left;
+    color: #f60;
+    text-align: center;
+    margin-top: 10px;
+    font-family: "Arial";
+    font-size: 20px;
+    font-weight: 700%;
+}
+
+.right .tags {
+    border: 1px solid #ccc;
+    padding: 10px;
+    float: right;
+    width: 455px;
+    margin-top: 12px;
+    margin-right: 10px;
+
+}
+.right .tags ul li {
+    list-style: none;
+    display: inline-block;
+    margin: 10px 10px;
+}
+
+.right .tags .tag {
+    padding: 2px 5px;
+    border-radius: 3px;
+}

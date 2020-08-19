@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <link rel="stylesheet" type="text/css" href="/statics/font-awesome/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="/statics/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/statics/iconfont/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/admin.css">
+    <link rel="stylesheet" href="/statics/css/custom-pagination.min.css" />
+    <link rel="stylesheet" type="text/css" href="/statics/css/admin_tag.css">
+    <title>{{ .Title }}</title>
+    <script src="/statics/js/jquery-3.5.0.min.js"></script>
+    <script type="text/javascript" src="/statics/js/custom-pagination.min.js"></script>
+    <script src="/statics/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <!-- header begin -->
+    <div class="header">
+        <div class="title"></div>
+        <div class="avator"></div>
+        <div class="logout">
+            <ul>
+                <li class="exit">退出</li>
+            </ul>
+        </div>
+    </div>
+    <!-- header end -->
+
+    <!-- left begin -->
+    <div class="left">
+        <ul>
+            <li>
+                <a href="/admin">
+                    <span class="iconfont icon-yibiaopan"></span>
+                    <span>仪表盘</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/write">
+                    <span class="iconfont icon-write"></span>
+                    <span>写文章</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="/admin/tags">
+                    <span class="iconfont icon-addphoto_icon_biaoqian_normal"></span>
+                    <span class="active">标签管理</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/articles">
+                    <span class="iconfont icon-to-do"></span>
+                    <span>文章管理</span>
+                </a>
+            </li>
+             <li>
+                <a href="/admin/photo">
+                    <span class="iconfont icon-photo"></span>
+                    <span>图片收藏</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/setting">
+                    <span class="iconfont icon-setting1"></span>
+                    <span>系统设置</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- left end -->
+    
+    <!-- right begin -->
+    <div class="right">
+        <div class="nav">
+            admin/标签管理 <div class="myAdd"><span class="iconfont icon-add"></span></div>
+        </div>
+        <div class="admin-tag">
+            
+        </div>
+        <div id="page" class="page" style="margin-top: 50px;"></div>
+        <!-- modal satrt -->
+        <div class="modal fade" id="myModal_add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">添加标签</h4>
+              </div>
+
+              <div class="modal-body">
+                  <div id="color">
+                      <div class="box">
+                          <div class="title">标签名：</div>
+                          <div class="name">
+                            <input type="text" id="tag_name1">
+                          </div>
+                      </div>
+
+                      <div class="box">
+                           <div class="title">颜色：</div>
+                           <div class="name">
+                                <input type="text" disabled="disabled" readonly="true" id ="tg_color1" />
+                                <input type="color" value="#FF6600">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary comfirm-add">确认</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- modal end -->
+
+        <!-- modal satrt -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">更新标签</h4>
+              </div>
+
+              <div class="modal-body">
+                  <div id="color">
+                      <div class="box">
+                          <div class="title">标签名：</div>
+                          <div class="name">
+                            <input type="text" id="tag_name">
+                          </div>
+                      </div>
+
+                      <div class="box">
+                           <div class="title">颜色：</div>
+                           <div class="name">
+                                <input type="text" disabled="disabled" readonly="true" id ="tg_color" />
+                                <input type="color" value="#FF6600">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary comfirm">确认</button>
+              </div>
+            </div>
+          </div>
+        </div>
+         <!-- modal end -->
+    </div>
+    <!-- right end -->
+    <script>
+        $(function(){
+
+            $(".myAdd").click(function(){
+                $('#myModal_add').modal('show')   
+                // $("#tag_name1").val()
+                $("#tg_color1").val("#252932")
+                $("input[type='color']").val("#252932")
+                
+                //listen color input
+                $("input[type='color']").change(function(e){
+                    $("#tg_color1").val(e.target.value)
+                })
+                $(".comfirm-add").click(function(){
+                    var name = $("#tag_name1").val()
+                    var color = $("#tg_color1").val()
+                    $.ajax({
+                        url:"/api/addtag",
+                        cache:false,
+                        data: {
+                            name:name,
+                            color:color
+                        },
+                        type:"get",
+                        dataType:"json",
+                        success:function(data){
+                            $("#myModal_add").modal('hide')
+                            window.location.href="/admin/tags"
+                        }
+                    })
+                })
+            })
+            
+            //分页插件
+            $.get("/api/tag/pages",{},function(data){
+                var box = new CustomPagination('#page', {
+                     total: data.pages,//总页数
+                     count: 6,//显示的页码个数，多余页码会用...代替
+                     changePage: function (pageNum) {//切换页码成功回调
+                       // console.log('当前页码：'+pageNum)
+                       render(pageNum)
+                     }
+                });
+            })
+            
+            function render(page) {
+                $.ajax({
+                    url:"/api/tag",
+                    cache:false,
+                    type: "get",    // 提交方式
+                    data: {"page_num":page},  // data为String类型，必须为 Key/Value 格式。
+                    dataType: "json",
+                    success: function(data) { 
+                        if (data.code==200) {
+                            var tags = data.tags
+                            var dom = `
+                            <table class="table table-bodered table-hover table-striped">
+                                <tr>
+                                    <th>NO</th>
+                                    <th>名称</th>
+                                    <th>颜色</th>
+                                    <th>总数</th>
+                                    <th>创建时间</th>
+                                    <th>更新</th>
+                                </tr>
+                            `
+                            for (var i = 0; i < tags.length; i++) {
+                                dom +=`
+                                <tr>
+                                    <td class="m_id">${tags[i].id}</td>
+                                    <td class="tg" style="font-family:'Arial';font-size:16px;color:#444;">${tags[i].name}</td>
+                                    <td style="background:${tags[i].color};color:#fff">${tags[i].color}</td>
+                                    <td style="color:#565656">${tags[i].count}</td>
+                                    <td style="color:#898989;font-size:15px;">${tags[i].create_time}</td>
+                                    <td>
+                                        <button class="s_modal" data-id="${tags[i].id}" style="background:#489ADE;color:#fff;border-radius:4px;border:1px solid #499ADE;" type="button" "><span class="iconfont icon-icon_update1"></span></button>
+                                    </td>
+                                </tr>
+                                `
+                            }
+
+                            dom += " </table>"
+                            $(".admin-tag").html(dom)
+
+                            $("button.s_modal").click(function(){
+                                //get tag info
+                                var id = $(this).data('id')
+                                $.ajax({
+                                    url:"/api/simple_tag",
+                                    cache:false,
+                                    type:"get",
+                                    data: {
+                                        id: id
+                                    },
+                                    dataType:"json",
+                                    success: function(data){
+                                        var color = data.color
+                                        var name = data.name
+                                        $('#myModal').modal('show')   
+                                        $("#tag_name").val(name)
+                                        $("#tg_color").val(color)
+                                        $("input[type='color']").val(color)
+                                        
+                                        //listen color input
+                                        $("input[type='color']").change(function(e){
+                                            $("#tg_color").val(e.target.value)
+                                        })
+                                        
+                                        //confirm "/api/update_tag"
+                                        $(".comfirm").click(function(){
+                                            $.ajax({
+                                                url:"/api/update_tag",
+                                                cache:false,
+                                                type:"get",
+                                                data: {
+                                                    id:id,
+                                                    name:$("#tag_name").val(),
+                                                    color:$("#tg_color").val()
+                                                },
+                                                dataType:"json",
+                                                success:function(data){
+                                                    $("#myModal").modal("hide")
+                                                    window.location.href="/admin/tags"
+                                                }
+                                            })
+                                        })
+                                    }
+                                })
+                            })
+                        }
+                    }
+                })
+            }
+        })
+    </script>
+    <script src="/statics/js/admin.js"></script>
+</body>
+</html>

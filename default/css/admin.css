@@ -1,0 +1,127 @@
+body,html{
+	height:100%;
+}
+.logout {
+	display: none;
+	position: fixed;
+	background: #F1F2F7;
+	width: 110px;
+	height: 60px;
+	right: 40px;
+	top:45px;
+	padding: 10px 0;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+}
+.logout ul  li{
+	padding-left: 20px;
+	font-size: 14px;
+	height: 30px;
+	line-height: 30px;
+	font-family: sans-serif,"Arial";
+	cursor: pointer;
+}
+.logout ul li:hover {
+	background: blue;
+	color: #fff;
+}
+.icon-entypodownopenmini {
+	cursor: pointer;
+}
+.right .nav {
+	margin-left:15px;
+	margin-top: 10px;
+}
+
+li.active {
+	background: #1D212A;
+	color: #fff;
+}
+a span.active{
+	color: #fff;
+	opacity: 0.8;
+}
+
+.header {
+	height:50px;
+	width: 100%;
+	background: #04DC99;
+	position: fixed;
+}
+.header .title{
+	font-size: 20px;
+	font-weight: 700%;
+	height: 50px;
+	line-height: 50px;
+	float: left;
+	margin-left: 17px;
+	color: #666;
+}
+.header .avator {
+	float: right;
+	height: 50px;
+}
+.header .avator img {
+	margin-top: 5px;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin-right: 30px;
+	cursor: pointer;
+}
+.header .avator span {
+	position: relative;
+	top: -10px;
+	left: -25px;
+}
+body .left {
+	width: 200px;
+	background: #252932;
+	height: 100%;
+	position: fixed;
+	top: 50px;
+}
+
+.left ul li {
+	font-size: 16px;
+	line-height: 24px;
+	font-family: "Arial";
+	padding: 10px 0 10px 20px;
+
+}
+
+.left ul li:hover {
+	background: #31353E;
+}
+.left ul li a{
+	display: block;
+	width: 100%;
+	height: 100%;
+	color: #969AA2;
+}
+
+.left ul li a:hover {
+	text-decoration: none;
+	color: #fff;
+	background: #31353E;
+}
+
+.left ul li a span.iconfont {
+    display: inline-block;
+	font-size: 15px;
+	width: 18px;
+	color: #fff;
+	opacity: 0.7;
+}
+
+.left ul li a span {
+	margin-right: 10px;
+}
+.right {
+	height: 100%;
+	padding-left: 200px;
+	background: #F1F2F7;
+	float: left;
+	padding-top: 50px;
+	width: 100%;
+}

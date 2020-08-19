@@ -1,0 +1,107 @@
+.right .info {
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-top: 10px;
+}
+
+.right a {
+	text-decoration: none;
+	color: #545454;
+	cursor: pointer;
+}
+
+.my-search {
+	padding-right: 15px;
+	font-family: "Arial",sans-serif;
+}
+.my-search input{
+	width: 500px;
+	float: right;
+	outline: none;
+	padding: 3px 10px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	font-size: 13px;
+	color: #565656;
+}
+.my-search #search {
+	float: right;
+	background: #04DC99;
+	border: 1px solid #04DC99;
+	border-radius: 3px;
+	padding: 3px 10px;
+	font-size: 14px;
+	cursor: pointer;
+	margin-left: 10px;
+}
+
+table tr th,table tr td{
+	text-align: center;
+}
+
+table.gridtable .review, table.gridtable .delete{
+	padding: 3px 4px;
+	border-radius: 3px;
+	cursor: pointer;
+	font-size: 12px;
+	border: none;
+}
+
+table.gridtable .review {
+	background: #10AE21;
+	margin-right: 10px;
+	padding: 4px 7px;
+}
+
+table.gridtable button.delete {
+	background: #DB1C65;
+	color: #fff;
+	padding: 2px 6px;
+	border-radius: 3px;
+}
+
+table.gridtable td.article-success {
+	text-align: center;
+	background: #ccc;
+}
+
+table.gridtable td.article-draft {
+	text-align: center;
+	background: #DB1C82;
+	color: #fff;
+}
+
+.my-switch .icon-off,.my-switch .icon-on{
+	width: 79px;
+	height:26px;
+	border-radius: 13px;
+	padding: 1px;
+}
+.my-switch .icon-on {
+	background: #39AE4B;
+}
+
+.my-switch .icon-off {
+	background: #EF3F3D;
+}
+.my-switch .circle {
+	width: 26px;
+	height: 26px;
+	background: #E7E7E7;
+	border-radius: 50%;
+}
+.my-switch .icon-on .circle {
+	float: left;
+}
+
+.my-switch .icon-off .circle {
+	float: right;
+}
+.my-switch .text {
+	float: left;
+	margin-left: 10px;
+	height: 26px;
+	line-height: 26px;
+	color: #fff;
+	font-weight: bold;
+}

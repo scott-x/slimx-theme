@@ -1,0 +1,12 @@
+.myfooter {
+	clear: both;
+	width: 1000px;
+	margin: 10px auto;
+	border-top:1px solid #EAECEF;
+	padding-top: 30px;
+	color: #586069;
+	font-size: 12px;
+}
+.myfooter a:hover {
+	text-decoration: none;
+}
