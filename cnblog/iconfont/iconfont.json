@@ -6,6 +6,48 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "5682840",
+      "name": "排序-升序",
+      "font_class": "paixu-shengxu",
+      "unicode": "e6aa",
+      "unicode_decimal": 59050
+    },
+    {
+      "icon_id": "5682841",
+      "name": "排序-降序",
+      "font_class": "paixu-jiangxu",
+      "unicode": "e6ab",
+      "unicode_decimal": 59051
+    },
+    {
+      "icon_id": "6642322",
+      "name": "排序-倒序",
+      "font_class": "Rectangle-",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "8148952",
+      "name": "排序-升序",
+      "font_class": "paixu-shengxu1",
+      "unicode": "e65f",
+      "unicode_decimal": 58975
+    },
+    {
+      "icon_id": "8531685",
+      "name": "排序-升序",
+      "font_class": "paixu-shengxu2",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "12274534",
+      "name": "排序-升序",
+      "font_class": "paixu-shengxu3",
+      "unicode": "e709",
+      "unicode_decimal": 59145
+    },
+    {
       "icon_id": "7766726",
       "name": "icon_details",
       "font_class": "icon_details",
