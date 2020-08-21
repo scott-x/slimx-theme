@@ -8,11 +8,11 @@ var nickname = setting.nickname
 
 $(".header .title").html(admin_name)
 $(".header .avator").html(`
-    <img src="${avator}" alt=""> <span>${nickname}</span><span class="iconfont icon-entypodownopenmini" style="positon:relative;top:-5px;"></span>
+    <img src="${avator}" alt=""> <span>${nickname}</span><span class="iconfont icon-paixu-shengxu1" style="positon:relative;top:-8px;"></span>
 `)
 
 //logout
-$(".icon-entypodownopenmini").click(function(){
+$(".icon-paixu-shengxu1").click(function(){
     var display = $(".logout")[0].style.display
     if (!display) {
         display = "none"
