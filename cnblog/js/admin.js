@@ -8,7 +8,7 @@ var nickname = setting.nickname
 
 $(".header .title").html(admin_name)
 $(".header .avator").html(`
-	<img src="${avator}" alt=""> <span>${nickname}</span><span class="iconfont icon-entypodownopenmini"></span>
+    <img src="${avator}" alt=""> <span>${nickname}</span><span class="iconfont icon-entypodownopenmini" style="positon:relative;top:-5px;"></span>
 `)
 
 //logout
