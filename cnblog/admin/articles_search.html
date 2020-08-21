@@ -111,7 +111,7 @@
                     url: "/api/articles",   
                     cache:false,
                     type: "get",    // 提交方式
-                    data: {"page_num":page_num,"title":title},  // data为String类型，必须为 Key/Value 格式。
+                    data: {"page_num":page_num,"title":title,read:"0"},  // data为String类型，必须为 Key/Value 格式。
                     dataType: "json",    // 服务器端返回的数据类型
                     success: function (data) {    
                        if (data.code==200) {
