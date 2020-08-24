@@ -31,7 +31,7 @@ $(function(){
             var create_time=blog.create_time.split(" ")[0]
             $(".blog_content .blog_left .content .title").append(blog.title)
             var dom_time = `<span class="btn_tag" > 发表于 ${create_time}</span>`
-            $(".blog_content .blog_left .content .info").append(dom_time)
+            $(".blog_content .blog_left .content .minfo").append(dom_time)
             $(".blog_content .blog_left .content .mkd").append(blog.content)
             $('pre').addClass("line-numbers").css("white-space", "pre-wrap");
             $('table').addClass('table').addClass('table-bordered').addClass('table-hover').addClass('table-striped')
@@ -90,7 +90,7 @@ $(function(){
                     dom += `<a href="/posts?tid=${tags[i].id}"><button style="background:${color};color:#fff;border:none;" class="btn_tag">${name}</button></a>`
                 }
             }
-            $(".blog_content .blog_left .content .info").append(dom)
+            $(".blog_content .blog_left .content .minfo").append(dom)
         })
     }
 })
