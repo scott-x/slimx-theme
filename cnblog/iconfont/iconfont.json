@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "7674865",
+      "name": "模块",
+      "font_class": "cedaohang-mokuai",
+      "unicode": "e711",
+      "unicode_decimal": 59153
+    },
+    {
+      "icon_id": "14996173",
+      "name": "模块",
+      "font_class": "mokuai",
+      "unicode": "e692",
+      "unicode_decimal": 59026
+    },
+    {
       "icon_id": "5682840",
       "name": "排序-升序",
       "font_class": "paixu-shengxu",
