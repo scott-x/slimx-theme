@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/statics/css/modal_m.css">
 
     <link rel="stylesheet" type="text/css" href="/statics/css/admin.css">
-    <link rel="stylesheet" type="text/css" href="/statics/css/admin_photo.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/admin_module.css">
     <title>{{ .Title }}</title>
     <script src="/statics/js/jquery-3.5.0.min.js"></script>
     <script src="/statics/js/modal_final.js"></script>
@@ -60,13 +60,13 @@
         <li class="active">
             <a href="/admin/de_module">
                 <span class="iconfont icon-mokuai"></span>
-                <span>模块设置</span>
+                <span class="active">模块设置</span>
             </a>
         </li>
         <li >
             <a href="/admin/photo">
                 <span class="iconfont icon-photo"></span>
-                <span class="active">图片收藏</span>
+                <span >图片收藏</span>
             </a>
         </li>
         <li>
@@ -104,20 +104,49 @@
 <!-- right begin -->
 <div class="right">
     <div class="nav">
-        admin/详情页模块管理 <div class="myAdd"><span class="iconfont icon-add" id="modal-btn"></span>
+        admin/模块管理(前端详情页) <div class="myAdd"><span class="iconfont icon-add" id="modal-btn"></span>
         </div>
-        <div class="admin-photo">
-            <div id="mytable">
+        <div class="admin-module">
+            <div class="head">
+                <span class="iconfont icon-gengduo6">&nbsp;模块</span>&nbsp;<span class="iconfont icon-entypodownopenmini"></span>
             </div>
-            <div id="page" class="page"></div>
+            <div class="body">
+            
+            </div>
         </div>
     </div>
     <!-- right end -->
     <script type="text/javascript">
         $(function(){
             $.get("/api/detail/modules",{},function(data){
-                console.log(data)
+                var modules = data.modules
+                var dom =""
+                for (var i = 0; i < modules.length; i++) {
+                    dom += `
+                    <div class="item" style="opacity:${modules[i].visiable==1?1:0.9}">
+                       <div class="action">
+                           <span class="iconfont icon-gengduo3"></span>
+                       </div>
+                       <img src="${modules[i].cover}">
+                       <p>${modules[i].type_name}</p>
+                       <div>
+                           <span class="status ${modules[i].visiable==1?'active':''}"></span>
+                           <h4>${modules[i].title}</h4>
+                       </div>
+                    </div>   
+                    `
+                }
+                $(".admin-module .body").html(dom)
+                $(".admin-module .body .item").mouseenter(function(){
+                    $(this).find(".action").show()
+                    $(this).siblings().find(".action").hide()
+                })
+
+                $(".admin-module .body .item").mouseleave(function(){
+                     $(this).find(".action").hide()
+                })
             })
+
             $("#modal-btn").click(function(){
                 $("#myModal").modal("show")
                 
@@ -150,6 +179,7 @@
                             // alert(data.msg)
                         })
                          $("#myModal").modal("hide")
+                         window.location.href = "/admin/de_module"
                     })
                 })                
             })

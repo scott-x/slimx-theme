@@ -1,0 +1,82 @@
+/*
+* @Author: scottxiong
+* @Date:   2020-08-26 09:52:05
+* @Last Modified by:   scottxiong
+* @Last Modified time: 2020-08-26 17:14:55
+*/
+.right .myAdd {
+	display: inline;
+	color: #f60;
+}
+
+.admin-module .head {
+	margin-top: 10px;
+}
+
+.admin-module .head .icon-gengduo6 {
+	color: #565656;
+	font-weight: bold;
+	font-size: 15px;
+}
+.admin-module .body .item {
+	position: relative;
+	float: left;
+	margin-right: 20px;
+	margin-top: 20px;
+	border: 1px solid #ccc;
+	height: 190px;
+	padding: 5px;
+	width: 212px;
+	border-radius: 3px;
+	box-shadow: 0 0 8px rgba(37,41,50,.8)
+}
+
+.admin-module .body .item:hover {
+	transform: scale(.97);
+	/*border: 3px solid #ccc;*/
+}
+
+.admin-module .body .item .action {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	background: #fff;
+	position: absolute;
+	border: 1px solid #ccc;
+	right: -15px;
+	top: -15px;
+	cursor: pointer;
+	display: none;
+}
+
+.admin-module .body .item .action span {
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	margin: 0 auto;
+	font-size: 32px;
+	display: relative;
+	right: 0;
+}
+
+.admin-module .body .item p {
+	color: #565656;
+	font-family: "Arial";
+	font-size: 12px;
+	margin: 10px 0;
+}
+
+.admin-module .body .item div span.status {
+	display: inline-block;
+	float: left;
+	margin-top: 5px;
+	margin-right: 4px;
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: red;
+}
+
+.admin-module .body .item div span.active {
+	background: green;
+}
