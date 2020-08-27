@@ -6,6 +6,69 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "1703527",
+      "name": "关闭",
+      "font_class": "guanbi1",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "12685485",
+      "name": "删除",
+      "font_class": "icon_huabanfuben",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "823176",
+      "name": "隐藏",
+      "font_class": "yincang",
+      "unicode": "e6b1",
+      "unicode_decimal": 59057
+    },
+    {
+      "icon_id": "1002518",
+      "name": "显示",
+      "font_class": "xianshi",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "150097",
+      "name": "启动",
+      "font_class": "qidong",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "994691",
+      "name": "开始",
+      "font_class": "ai03",
+      "unicode": "e675",
+      "unicode_decimal": 58997
+    },
+    {
+      "icon_id": "4251747",
+      "name": "启动",
+      "font_class": "qidong1",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
+      "icon_id": "14095245",
+      "name": "停止",
+      "font_class": "tingzhi",
+      "unicode": "e779",
+      "unicode_decimal": 59257
+    },
+    {
+      "icon_id": "14151870",
+      "name": "停止",
+      "font_class": "tingzhi1",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
       "icon_id": "485799",
       "name": "更多",
       "font_class": "gengduo",
