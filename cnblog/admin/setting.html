@@ -84,30 +84,26 @@
     </div>
     <div class="admin-setting">
         <div class="row">
-            <h3>1. 显示条数管理</h3>
-            <h4>1.1 前台页面显示</h4>
+            <h3>Ⅰ. 显示条数管理</h3>
+            <h4>a 前台页面显示</h4>
             <div class="item">
 
                 <div class="name">博客</div>
                 <div class="value">
                     <div class="mui-numbox b1">
-                        <button class="minus reduce" type="button">-</button>
                         <input class="numbox" type="number" id="val1" data-id="1"/>
-                        <button class="minus plus" type="button">+</button>
                         <span>条/页</span>
                     </div>
 
                 </div>
             </div>
 
-            <h4>1.2 后台页面显示</h4>
+            <h4>b 后台页面显示</h4>
             <div class="item">
                 <div class="name">博客</div>
                 <div class="value">
                     <div class="mui-numbox b2">
-                        <button class="minus reduce" type="button">-</button>
                         <input class="numbox" type="number" id="val2" data-id="2"/>
-                        <button class="minus plus" type="button">+</button>
                         <span>条/页</span>
                     </div>
                 </div>
@@ -118,9 +114,7 @@
                 <div class="name">标签</div>
                 <div class="value">
                     <div class="mui-numbox b3">
-                        <button class="minus reduce" type="button">-</button>
                         <input class="numbox" type="number" id="val3" data-id="3"/>
-                        <button class="minus plus" type="button">+</button>
                         <span>条/页</span>
                     </div>
 
@@ -134,16 +128,14 @@
                 <div class="name">图片</div>
                 <div class="value">
                     <div class="mui-numbo b4">
-                        <button class="minus reduce" type="button">-</button>
                         <input class="numbox" type="number" id="val4" data-id="4"/>
-                        <button class="minus plus" type="button">+</button>
                         <span>条/页</span>
                     </div>
 
                 </div>
             </div>
 
-            <h3>2. 个人设置</h3>
+            <h3>Ⅱ. 个人设置</h3>
             <!-- nickname -->
             <div class="item me">
                 <div class="name">昵称&nbsp;</div>
@@ -206,63 +198,6 @@
 
         })
         
-        //minus
-        $(".b1 .reduce").click(function(){
-            val = parseInt($("#val1").val())-1
-            $("#val1").val(val)
-            update(val,1)
-        })
-
-        //plus
-        $(".b1 .plus").click(function(){
-            val = parseInt($(" #val1").val())+1
-            $("#val1").val(val)
-            update(val,1)
-        })
-
-
-        //minus
-        $(".b2 .reduce").click(function(){
-            val = parseInt($("#val2").val())-1
-            $("#val2").val(val)
-            update(val,2)
-        })
-
-        //plus
-        $(".b2 .plus").click(function(){
-            val = parseInt($("#val2").val())+1
-            $("#val2").val(val)
-            update(val,2)
-        })
-
-        //minus
-        $(".b3 .reduce").click(function(){
-            val = parseInt($("#val3").val())-1
-            $("#val3").val(val)
-            update(val,3)
-        })
-
-        //plus
-        $(".b3 .plus").click(function(){
-            val = parseInt($("#val3").val())+1
-            $("#val3").val(val)
-            update(val,3)
-        })
-
-        //minus
-        $(".b4 .reduce").click(function(){
-            val = parseInt($("#val4").val())-1
-            $("#val4").val(val)
-            update(val,4)
-        })
-
-        //plus
-        $(".b4 .plus").click(function(){
-            val = parseInt($("#val4").val())+1
-            $("#val4").val(val)
-            update(val,4)
-        })
-
         $("input[id^='val']").change(function (data){
             var id =$(this).data("id")
             var value = $(this).val()

@@ -78,29 +78,26 @@
 	background: #F1F2F7;
 	opacity: 0.9;
 	outline: none;
+	border: none;
 }
-
+.admin-setting .item .value input[type='number'] {
+	width: 50px;
+	border: none;
+	outline: none;
+	background: #F1F2F7;
+	position: relative;
+	top:4px;
+	text-align: center;
+	color: #787878;
+}
+.admin-setting .item .value span {
+	position: relative;
+	top:4px;
+	left: -10px;
+	font-family: "华为行楷";
+	font-size: 14px;
+}
 .admin-setting .item .value input[type='text']:hover {
 	border: 1px solid #ccc;
 	border-radius: 3px;
 }
-
- *{border:none;margin:0px;padding:0px;}
-.number{ padding: 36px 0 28px;width:400px;margin:auto}
-.mui-numbox{ display: inline-block;}
-.minus{width: 30px; height: 30px; text-align: center; background: #F1F2F7; color: #9e9e9e;} 
-.minus:hover{
-	border: none;
-	outline: none;
-}
-.numbox{border-top: solid 1px #eaeaea; border-bottom: solid 1px #eaeaea; height: 28px; width:35px; color: #333333; margin-left:-8px; text-align: center; background: transparent;}
-.numbox::textfield-decoration-container {
-   
-}
-.numbox::-webkit-inner-spin-button {
-     -webkit-appearance: none;
-}
-.numbox::-webkit-outer-spin-button {
-     -webkit-appearance: none;	/* 有无看不出差别 */
-}
-.plus { margin-left: -8px;}
