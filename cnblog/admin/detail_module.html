@@ -128,9 +128,7 @@
         admin/模块管理(前端详情页) <div class="myAdd"><span class="iconfont icon-add" id="modal-btn"></span>
         </div>
         <div class="admin-module">
-            <div class="head">
-                <span class="iconfont icon-gengduo6">&nbsp;模块</span>&nbsp;<span class="iconfont icon-entypodownopenmini"></span>
-            </div>
+           
             <div class="body">
                 
             </div>
@@ -142,7 +140,7 @@
             $.get("/api/detail/modules",{},function(data){
                 var modules = data.modules
                 var dom = `
-                <table class="table table-striped table-hover">
+                <table class="table table-hover">
                   <tr class="danger">
                       <th>ID</th>
                       <th>名称</th>
@@ -158,11 +156,11 @@
                     dom += `
                     <tr>
                          <td>${modules[i].id}</td>    
-                         <td>${modules[i].title}</td>    
+                         <td> <input type="text" name="" value="${modules[i].title}" placeholder="" style="border:none;outline:none;background:#F1F2F7;" class="myTitle" data-id=${modules[i].id}></td>    
                          <td><img style="width:25px;height:15px;border-radius:2px;position:relative;top:2px;" src="${modules[i].cover}" alt="">&nbsp;${modules[i].type_name}</td>    
-                         <td style="text-align:center;">${modules[i].max}</td>    
+                         <td style="text-align:center;"> <input type="number" name="" value="${modules[i].max}" placeholder="" style="background:#F1F2F7;outline:none;border:none;width:30px;" class="myMax" data-id=${modules[i].id}></td>    
                          <td>
-                            <div style="width:10px;height:10px;border-radius:50%;background:${modules[i].visiable==1?'green':'red'};margin:0 auto;margin-top:6px;">
+                            <div style="width:10px;height:10px;border-radius:50%;background:${modules[i].visiable==1?'green':'red'};margin:0 auto;margin-top:6px;" class='myStatus'  data-id=${modules[i].id} data-visiable=${modules[i].visiable}>
                             </div>
                          </td>    
                          <td style="text-align:center;color:#6072D3;font-weight:bold;cursor:pointer;">
@@ -176,7 +174,45 @@
                 }
                 dom += " </table>"
                 $(".admin-module .body").html(dom)
+                
 
+                //status
+                $(".myStatus").click(function(){
+                  var id= $(this).data("id")
+                  var visiable= $(this).data("visiable")
+                  visiable=visiable==0?1:0
+                  $.post("/api/detail/update_module_status",{
+                    id:id,
+                    visiable:visiable
+                  },function(data){
+                    alert(data.msg)
+                    window.location.href="/admin/de_module"
+                  })
+                })
+
+                //update title
+                $(".myTitle").change(function(){
+                  var title =$(this).val()
+                  var id= $(this).data("id")
+                  $.post("/api/detail/update_module_title",{
+                    id:id,
+                    title:title
+                  },function(data){
+
+                  })
+                })
+                
+                //update max
+                $(".myMax").change(function(){
+                  var max = $(this).val()
+                  var id= $(this).data("id")
+                  $.post("/api/detail/update_module_max",{
+                    id:id,
+                    max:max
+                  },function(data){
+
+                  })
+                })
                 $(".icon-icon_huabanfuben").click(function(){
                     var id = $(this).data('id')
                     console.log("id:",id)
