@@ -18,9 +18,11 @@ var howElliptical=1;
 var aA=null;
 var oDiv=null;
 
-window.onload=function ()
+mydo()
+
+function mydo()
 {
-	console.log("onload");
+	// console.log("onload");
 	var i=0;
 	var oTag=null;
 
@@ -69,7 +71,7 @@ window.onload=function ()
 
 function update()
 {
-	console.log("update");
+	// console.log("update");
 	var a;
 	var b;
 
