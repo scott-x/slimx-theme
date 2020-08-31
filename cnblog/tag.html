@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/statics/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="/statics/css/about.css">
+    <link rel="stylesheet" type="text/css" href="/statics/css/tag.css">
     <link rel="stylesheet" type="text/css" href="/statics/css/detail.css">
     <link rel="stylesheet" type="text/css" href="/statics/css/prism.css">
     <link rel="stylesheet" type="text/css" href="/statics/css/footer.css">
@@ -30,8 +30,8 @@
 	<div class="body">
 		<!-- show content -->
 		<div class="content">
-			about
-		</div>
+            <div id="myTag">
+            </div>
 	</div>
     <!-- body end -->
 
@@ -46,6 +46,29 @@
 		$(function(){
 			var storage = window.localStorage
 
+			//render tags
+			$.get("/api/tag/showAllTags",{},function(data){
+				var tags = data.tags
+				var dom = `<div id="tagbox" style="position:relative;margin:20px auto 0px;width:600px;height:500px;background:#00000000;">`
+				for (var i = 0; i < tags.length; i++) {
+					tags[i]
+					dom += `<a href="/posts?tid=${tags[i].id}" style="color:${tags[i].color};position:absolute;padding:3px 6px;font-family:Microsoft YaHei;color:#9932CC;TOP:0px;font-weight:bold;text-decoration:none;left:0px;">${tags[i].name}</a> `
+				}
+				dom += `</div>`
+				$("#myTag").html(dom)
+
+				// var css = document.createElement('link');
+				// css.rel = 'stylesheet';
+				// css.type = 'text/css';
+				// css.href = '/statics/css/tag.css';
+				// document.body.appendChild(css);
+
+				var ss = document.createElement("script")
+                ss.setAttribute("type","text/javascript");
+				ss.setAttribute("src","/statics/js/3dtag.js");
+				document.body.appendChild(ss);
+				
+			})
 			//init setting
 		    function init() {
 		        var setting=storage.getItem("setting")
