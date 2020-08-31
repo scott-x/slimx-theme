@@ -52,7 +52,7 @@
 				var dom = `<div id="tagbox" style="clear: both;">`
 				for (var i = 0; i < tags.length; i++) {
 					tags[i]
-					dom += `<a href="/posts?tid=${tags[i].id}" style="color:${tags[i].color};">${tags[i].name}</a> `
+					dom += `<a href="/posts?tid=${tags[i].id}" style=";display: inline-block;"><button style="color:${tags[i].color};border: none;border-radius: 3px;border: 1px solid #ccc;padding: 3px 6px;">${tags[i].name}</button></a> `
 				}
 				dom += `</div>`
 				$(".content #myTag").html(dom)
