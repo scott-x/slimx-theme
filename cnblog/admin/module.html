@@ -125,7 +125,7 @@
 <!-- right begin -->
 <div class="right">
     <div class="nav">
-        admin/模块管理(前端详情页) <div class="myAdd"><span class="iconfont icon-add" id="modal-btn"></span>
+        admin/我的模块<div class="myAdd"> <span class="iconfont icon-add" id="modal-btn"></span>
         </div>
         <div class="admin-module">
            
@@ -137,6 +137,20 @@
     <!-- right end -->
     <script type="text/javascript">
         $(function(){
+            var search = window.location.search
+            var mid = search.split('?type=')[1]
+            if (mid && mid>=1 && mid <=3) {
+              //开始db操作
+              renderModule(mid)
+            }
+            
+            function renderModule(mid) {
+                $.get("/api/module/detail",{
+                  mid:mid
+                },function(data){
+                  console.log(data)
+                })
+            }
             $.get("/api/detail/modules",{},function(data){
                 var modules = data.modules
                 var dom = `
@@ -164,7 +178,7 @@
                             </div>
                          </td>    
                          <td style="text-align:center;color:#6072D3;font-weight:bold;cursor:pointer;">
-                            <a href="/admin/my_module?type=${modules[i].type}" title=""><span class="iconfont icon-icon_details"></span></a>
+                           <span class="iconfont icon-icon_details"></span>
                          </td>    
                          <td style="text-align:center;color:#DF4F7F;font-weight:bold;cursor:pointer;">
                            <span class="iconfont icon-icon_huabanfuben" data-id=${modules[i].id}></span>
