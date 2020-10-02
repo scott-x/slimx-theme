@@ -1,6 +1,18 @@
 $(function(){
     var url = window.location.href
-    var id = url.split("?id=")[1]
+    var id =''
+    var tid = ''
+
+    if (url.indexOf('&')>-1) {
+        var arr = url.split("?")[1].split("&")
+        id = arr[0].substring(3)
+        tid = arr[1].substring(4)
+        console.log(tid)
+
+    }else {
+        id = url.split("?id=")[1]
+    }
+    
     var storage = window.localStorage
     //init setting
     function init() {
@@ -63,20 +75,33 @@ $(function(){
     })
 
     function render() {
-        //previous
-        $.get("/api/post/previous",{bid:id},function(result){
-            if (result.title!=""){
-                $(".blog .previous span").append(`上一篇：<a href="/detail?id=${result.id}">${result.title}</a>`)
-            }
-            
-        })
+        var url = window.location.href
+        var id =''
+        var tid = ''
 
-        //next   /post/next
-        $.get("/api/post/next",{bid:id},function(result){
-            if (result.title!=""){
-                $(".blog .next span").append(`下一篇：<a href="/detail?id=${result.id}">${result.title}</a>`)
+        if (url.indexOf('&')>-1) {
+            var arr = url.split("?")[1].split("&")
+            id = arr[0].substring(3)
+            tid = arr[1].substring(4)
+            console.log(tid)
+
+        }else {
+            id = url.split("?id=")[1]
+        }
+
+        $.get("/api/post/cpn",{bid:id,tid:tid},function(result){
+            console.log(result)
+            var prev = result.prevNext.Prev
+            var next = result.prevNext.Next
+
+            if (prev.title!=""){
+                $(".blog .previous span").append(`上一篇：<a href="/cdetail?id=${prev.bid}&tid=${prev.tid}">${prev.title}</a>`)
             }
-            
+
+            if (next.title!=""){
+                $(".blog .next span").append(`下一篇：<a href="/cdetail?id=${next.bid}&tid=${prev.tid}">${next.title}</a>`)
+            }
+
         })
 
         $.get("/api/tag/showTags",{"front_bid":id},function(result){
