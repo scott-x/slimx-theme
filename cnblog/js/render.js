@@ -18,7 +18,7 @@ $(function(){
         var last = github_url.lastIndexOf("/")
         var github_name = github_url.substring(last+1)
         //render dom
-        $(".copyright .info").html(`<p>Copyright © 2020 <a href="${github_url}">${github_name}</a>. All rights reserved.</p>`)
+        $(".copyright .info").html(`<p>Copyright © 2020 <a href="${github_url}" target="_blank">${github_name}</a>. All rights reserved.</p>`)
         
     }
     init()
