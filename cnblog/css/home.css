@@ -281,3 +281,37 @@ ul li:hover{
 #page .page-to {
 	width: 170px;
 }
+
+.mail {
+	padding: 0;
+	margin: 0;
+}
+.mail a {
+	display: inline-block;
+	width: 54px;
+	height: 32px;
+	text-decoration: none;
+}
+.mail a span {
+	position: relative;
+	top: 6px;
+}
+
+/*微信关注*/
+.wxgz{
+	position: absolute;
+	width: 300px;
+	height: 350px;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+}
+.wxgz img {
+	width: 250px;
+	height: 250px;
+}
+
+.dark {
+	background: #79797C;
+	opacity: 0.5;
+}

@@ -2,3 +2,37 @@
 	width: 1000px;
 	margin:0 auto;
 }
+
+.content .item {
+	margin-top: 10px;
+	font-weight: arial;
+}
+
+.content .item h3 {
+	font-family: "华文行楷";
+	font-weight: 700;
+	color: #E72CC3;
+	font-size: 18px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid #ccc;
+}
+
+.content .item ul {
+	margin-left: 10px;
+	padding-top: 5px;
+}
+
+.content .item ul li{
+	line-height: 16px;
+}
+
+.content .item ul li a{
+	color: #0366D6;
+	opacity: 0.9;
+}
+.content .item ul li a:hover{
+	text-decoration: underline;
+	font-style: italic;
+    opacity: 0.8;
+    font-size: 1.05em;
+}

@@ -14,7 +14,27 @@
     <script type="text/javascript" src="/statics/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
+    <div class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Modal title</h4>
+          </div>
+          <div class="modal-body">
+            <p>One fine body&hellip;</p>
+            <img src="/uploads/wx.jpg" alt="">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
 	<div class="my-container">
+
 			<!-- header begin -->
 			<div class="header">
 				<div class="nav">
@@ -44,7 +64,9 @@
 
 						<div class="action section">
 							<button class="btn btn-warning">关注</button>
-							<button class="btn btn-default">私信</button>
+							<button class="btn btn-default mail">
+								<a href = "mailto: abc@example.com"><span>私信</span></a>
+							</button>
 						</div>
 						
 						<div class="latest section">
@@ -116,7 +138,7 @@
 		            $.get("/api/info/page",{"tid":tid},function(data){
 		            	var box = new CustomPagination('#page', {
 		            	     total: data.pages,//总页数
-		            	     count: 6,//显示的页码个数，多余页码会用...代替
+		            	     count: 5,//显示的页码个数，多余页码会用...代替
 		            	     changePage: function (pageNum) {//切换页码成功回调
 		            	       render(pageNum,tid)
 		            	     }
@@ -140,9 +162,24 @@
 							}
                     	}
                     })
+
+                    function getEmail() {
+                    	var storage=localStorage;
+                    	var setting = storage.getItem("setting")
+
+                    	if (!setting) {
+							$.get("/api/blog/mail",{},function(data) {
+								$(".btn-default").html(`<a href = "mailto: ${data.mail}"><span>私信</span></a>`)
+	                    	})
+                    	}else{
+                    		var mail=JSON.parse(setting).email
+                    		$(".btn-default").html(`<a href = "mailto: ${mail}"><span>私信</span></a>`)
+                    	}
+                    }
 					
 					//init setting
 					function init() {
+						getEmail()
 						var setting=storage.getItem("setting")
 						if (!setting){
 						    $.get("/api/blog/get_setting",{},function(data){
@@ -206,7 +243,7 @@
     								</tr>
     							</table>
                             	`)
-	                        $(".copyright .info").html(`<p>Copyright © 2020 <a href="${github_url}">${github_name}</a>. All rights reserved.</p>`)
+	                        $(".copyright .info").html(`<p>Copyright © 2020 <a href="${github_url}" target="_blank">${github_name}</a>. All rights reserved.</p>`)
 						}
 					}
 					init()

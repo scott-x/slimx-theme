@@ -122,7 +122,7 @@
 		            $.get("/api/blog/search_page",{"title":title},function(data){
 		            	var box = new CustomPagination('#page', {
 		            	     total: data.pages,//总页数
-		            	     count: 6,//显示的页码个数，多余页码会用...代替
+		            	     count: 5,//显示的页码个数，多余页码会用...代替
 		            	     changePage: function (pageNum) {//切换页码成功回调
 		            	       render(pageNum,title)
 		            	     }

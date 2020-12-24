@@ -56,6 +56,12 @@
             </a>
         </li>
         <li>
+            <a href="/admin/recommend">
+                <span class="iconfont icon-tuijian"></span>
+                <span >推荐管理</span>
+            </a>
+        </li>
+        <li>
             <a href="/admin/de_module">
                 <span class="iconfont icon-mokuai"></span>
                 <span>模块设置</span>
@@ -171,7 +177,7 @@
             <div class="item me">
                 <div class="name">email&nbsp;</div>
                 <div class="value  email">
-                    <input type="text"  id="val8" placeholder="" data-id="8">
+                    <input type="text"  id="val8" placeholder="" data-id="9">
                 </div>
             </div>
 
@@ -203,6 +209,7 @@
             $(".me .avator").html(`<img src="${setting.avator}" alt="" >`)
             $(".me .admin input").val(setting.admin_name)
             $(".me .github input").val(setting.github)
+            $(".me .email input").val(setting.email)
 
         })
         
@@ -230,7 +237,10 @@
                         break;
                     case 8:
                         setting.github = value  
-                        break;  
+                        break; 
+                    case 9:
+                    setting.email = value  
+                    break;   
                 }
                 storage.setItem("setting",JSON.stringify(setting))
             }           
