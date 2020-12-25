@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="/statics/css/admin_recommend.css">
     <link rel="stylesheet" type="text/css" href="/statics/css/admin.css">
     <link rel="stylesheet" href="/statics/css/custom-pagination.min.css" /><!-- 1.引入css -->
-    <link rel="stylesheet" type="text/css" href="/statics/css/admin_article.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/statics/css/admin_article.css"> -->
     <!-- <link rel="stylesheet" href="/statics/upload/dist/css/dropify.min.css"> -->
     <title>{{ .Title }}</title>
     <script src="/statics/js/jquery-3.5.0.min.js"></script>
@@ -95,7 +95,7 @@
           </div>
 
           <div class="modal-body">
-              <div id="color">
+              <div id="rec">
                   <div class="box">
                       <div class="title">标题/名称：</div>
                       <div class="name">
@@ -118,100 +118,84 @@
             admin/recommend <div class="myAdd"><span class="iconfont icon-add"></span></div>
         </div>
         <div class="info">
-            <table class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr class="danger">
-                        <th>ID</th>
-                        <th>描述</th>
-                        <th>链接</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>data</td>
-                        <td>data</td>
-                        <td>data</td>
-                        <td>data</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div id="page" class="page"></div>
+            
         </div>
         <div id="page" class="page" style="margin-top: 50px;"></div>
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Warning</h4>
-              </div>
-              <div class="modal-body">
-                <p>确认要删除吗?</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary confirm">确认</button>
-              </div>
-            </div><!-- /.modal-content -->
-          </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
     </div>
     <!-- right end -->
     <script>
          $(function(){
-            // $.get("/api/recommend_item/items",)
-            $(".icon-add").click(function(){
-                $('#myModal_add').modal('show')   
+            $(".myAdd .icon-add").click(function(){
+                $('#myModal_add').modal('show') 
+                $(".comfirm-add").click(function(){
+                    var description = $("#rec #rec_title").val()
+                    $.ajax({
+                        url:"/api/recommend/add",
+                        cache:false,
+                        data: {
+                            description:description
+                        },
+                        type:"get",
+                        dataType:"json",
+                        success:function(data){
+                            $("#myModal_add").modal('hide')
+                            window.location.href="/admin/recommend"
+                        }
+                    })
+                })  
             })
-            var box = new CustomPagination('#page', {
-                 total: 1,//总页数
-                 changePage: function (pageNum) {//切换页码成功回调
-                   console.log('当前页码：'+pageNum)
-                   $.get("/api/recommend_item/items",{
-                    "current_page":pageNum
-                   },function(data){
-                     console.log(data)
-                     var dom = ""
-                     dom += `
-                     <table class="table table-striped table-bordered table-hover">
-                         <thead>
-                             <tr class="danger">
-                                 <th>ID</th>
-                                 <th>描述</th>
-                                 <th>链接</th>
-                                 <th>详情</th>
-                                 <th>删除</th>
-                             </tr>
-                         </thead>
-                         <tbody>
-                         `
-                         var items = data.items
-                         for (var i = 0; i < items.length; i++) {
-                             dom += `
-                            <tr>
-                                 <td>${items[i].id}</td>
-                                 <td>${items[i].txt}</td>
-                                 <td>${items[i].link}</td>
-                                 <td style="text-align:center;">
-                                     <a href="/admin/detail?bid=${i.bid}">
-                                         <span class="iconfont icon-icon_details" style="display:block;font-weight:bold;font-size:18px;opacity:0.8;margin-top:1px;color:#476FD7;"></span>
-                                     </a>
-                                 </td>
-                                 <td style="text-align:center;">
-                                     <span class="iconfont icon-delete2 delete" data-bid="${i.bid}" style="display:block;font-weight:bold;font-size:16px;opacity:0.8;color:#EE3F6F;"></span>
-                                 </td>
-                             </tr>
+
+            $.get("/api/recommend_item/pages",{},function(data){
+                var box = new CustomPagination('#page', {
+                     total: data.pages,//总页数
+                     changePage: function (pageNum) {//切换页码成功回调
+                       console.log('当前页码：'+pageNum)
+                       $.get("/api/recommend_item/items",{
+                        "current_page":pageNum
+                       },function(data){
+                         console.log(data)
+                         var dom = ""
+                         dom += `
+                         <table class="table table-striped table-bordered table-hover">
+                             <thead>
+                                 <tr class="danger">
+                                     <th>ID</th>
+                                     <th>描述</th>
+                                     <th>链接</th>
+                                     <th>详情</th>
+                                     <th>删除</th>
+                                 </tr>
+                             </thead>
+                             <tbody>
                              `
+                             var items = data.items
+                             for (var i = 0; i < items.length; i++) {
+                                 dom += `
+                                <tr>
+                                     <td>${items[i].id}</td>
+                                     <td>${items[i].txt}</td>
+                                     <td>${items[i].link}</td>
+                                     <td style="text-align:center;">
+                                         <a href="/admin/detail?bid=${i.bid}">
+                                             <span class="iconfont icon-icon_details" style="display:block;font-weight:bold;font-size:18px;opacity:0.8;margin-top:1px;color:#476FD7;"></span>
+                                         </a>
+                                     </td>
+                                     <td style="text-align:center;">
+                                         <span class="iconfont icon-delete2 delete" data-bid="${i.bid}" style="display:block;font-weight:bold;font-size:16px;opacity:0.8;color:#EE3F6F;"></span>
+                                     </td>
+                                 </tr>
+                                 `
+                                 
+                             }
+                                 
+                              dom += `</tbody>` 
+                             $(".info").html(dom) 
+
                              
-                         }
-                             
-                          dom += `</tbody>` 
-                         $(".info").html(dom) 
-                         
-                   })
-                 }
-            });
+                       })
+                     }
+                });
+            })
          })
     </script>
     <script src="/statics/js/admin.js"></script>
