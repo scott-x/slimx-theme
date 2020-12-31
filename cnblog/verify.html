@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css" media="screen">
+		body{
+		    background: #35363A;
+		    opacity: 0.6;
+		}
+		.box {
+			color: #fff;
+			width: 215px;
+			height: 123px;
+			border: 1px solid #fff;
+			opacity: 0.7;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%,-50%);
+			border-radius: 5px;
+			padding: 30px;
+		}
+		.box input {
+			outline:none;
+		    border: 1px solid #ccc;
+		    padding: 3px 7px;
+		}
+		button {
+			cursor: pointer;
+			background: #2B7CD1;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<h3>宇宙有多大?</h3>
+		<input type="" name="" id="answer">
+		<button type="">提交</button>
+	</div>
+	<script src="/statics/js/jquery-3.5.0.min.js"></script>
+	<script>
+		$(function(){
+			
+			$("button").click(function(){
+				var answer = $("#answer").val()
+				$.post("/api/question",{
+					"answer":answer
+				},function(data){
+					if (data.code==200) {
+						$.get("/api/send_email",{},function(){
+							window.location.href="/auth"
+						})
+					}else{
+						alert(data.err_msg)
+						window.location.href="/verify"
+					}
+				})
+			})
+		})
+	</script>
+</body>
+</html>
