@@ -17,7 +17,7 @@
 			<ul>
 				<a href="/" ><li class="active">首页</li></a>
 				<a href="/tag" ><li>标签</li></a>
-				<a href="/recommend"><li>推荐</li></a>
+				<!-- <a href="/recommend"><li>推荐</li></a> -->
 				<a href="/about"><li>关于</li></a>
 			</ul>
 		</div>
@@ -44,15 +44,16 @@
 	<script>
 		$(function(){
 			var storage = window.localStorage
-
-			//render tags
-			$.get("/api/tag/showAllTags",{},function(data) {
-
-				var tags = data.tags
+			var tags = storage.getItem("tags"); 
+			// console.log(tags)
+			if (tags==null){
+				renderTags()
+			}else{
+				var tag_obj = JSON.parse(tags)
 				var dom = `<div id="tagbox" style="clear: both;">`
-				for (var i = 0; i < tags.length; i++) {
-					tags[i]
-					dom += `<a href="/category?tid=${tags[i].id}" style=";display: inline-block;"><button style="color:${tags[i].color};border: none;border-radius: 3px;border: 1px solid #ccc;padding: 3px 6px;">${tags[i].name}</button></a> `
+				for (var i = 0; i < tag_obj.length; i++) {
+					tag_obj[i]
+					dom += `<a href="/category?tid=${tag_obj[i].id}" style=";display: inline-block;"><button style="color:${tag_obj[i].color};border: none;border-radius: 3px;border: 1px solid #ccc;padding: 3px 6px;">${tag_obj[i].name}</button></a> `
 				}
 				dom += `</div>`
 				$(".content #myTag").html(dom)
@@ -62,13 +63,36 @@
 				css.type = 'text/css';
 				css.href = '/statics/css/tag.css';
 				document.body.appendChild(css);
-				// $("#tagbox").css({position:relative,margin:20px auto 0px,width:600px,height:500px,background:#00000000})
-				// $("#tagbox a").css({position:absolute,padding:3px 6px,font-family:Microsoft YaHei,color:#9932CC,TOP:0px,font-weight:bold,text-decoration:none,left:0px})
-				// var ss = document.createElement("script")
-				// ss.setAttribute("type","text/javascript");
-				// ss.setAttribute("src","/statics/js/3dtag.js");
-				// document.body.appendChild(ss);
-			})
+
+			}
+
+			function renderTags() {
+				//render tags
+				$.get("/api/tag/showAllTags",{},function(data) {
+                    var d=JSON.stringify(data.tags); 
+					storage.setItem("tags",d); 
+					var tags = data.tags
+					var dom = `<div id="tagbox" style="clear: both;">`
+					for (var i = 0; i < tags.length; i++) {
+						tags[i]
+						dom += `<a href="/category?tid=${tags[i].id}" style=";display: inline-block;"><button style="color:${tags[i].color};border: none;border-radius: 3px;border: 1px solid #ccc;padding: 3px 6px;">${tags[i].name}</button></a> `
+					}
+					dom += `</div>`
+					$(".content #myTag").html(dom)
+
+					var css = document.createElement('link');
+					css.rel = 'stylesheet';
+					css.type = 'text/css';
+					css.href = '/statics/css/tag.css';
+					document.body.appendChild(css);
+					// $("#tagbox").css({position:relative,margin:20px auto 0px,width:600px,height:500px,background:#00000000})
+					// $("#tagbox a").css({position:absolute,padding:3px 6px,font-family:Microsoft YaHei,color:#9932CC,TOP:0px,font-weight:bold,text-decoration:none,left:0px})
+					// var ss = document.createElement("script")
+					// ss.setAttribute("type","text/javascript");
+					// ss.setAttribute("src","/statics/js/3dtag.js");
+					// document.body.appendChild(ss);
+				})
+			}
 			//init setting
 		    function init() {
 		        var setting=storage.getItem("setting")

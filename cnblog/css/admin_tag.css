@@ -2,6 +2,7 @@
 	padding-left: 15px;
 	margin-top: 10px;
 	padding-right: 15px;
+	
 }
 span.iconfont:hover{
 	cursor: pointer;
@@ -10,6 +11,10 @@ span.iconfont:hover{
 .right .myAdd {
 	display: inline;
 	color: #f60;
+}
+
+#post {
+	background: #F1F2F7;
 }
 
 table tr th,table tr td {

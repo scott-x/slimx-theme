@@ -54,7 +54,7 @@
                     <span>文章管理</span>
                 </a>
             </li>
-            <li>
+           <!--  <li>
                 <a href="/admin/recommend">
                     <span class="iconfont icon-tuijian"></span>
                     <span >推荐管理</span>
@@ -65,7 +65,7 @@
                     <span class="iconfont icon-mokuai"></span>
                     <span>模块设置</span>
                 </a>
-            </li>
+            </li> -->
              <li>
                 <a href="/admin/photo">
                     <span class="iconfont icon-photo"></span>
@@ -170,6 +170,9 @@
             $(".myAdd").click(function(){
                 $('#myModal_add').modal('show')   
                 // $("#tag_name1").val()
+                // $("#tag_name1").focus()
+                document.getElementById("tag_name1").focus();
+
                 $("#tg_color1").val("#252932")
                 $("input[type='color']").val("#252932")
                 

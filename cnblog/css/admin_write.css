@@ -92,6 +92,8 @@
 	#post .subject .input, #post .subject .taginfo {
 		width: 540px;
 		float: right;
+		max-height: 182px;
+		overflow-y: auto;
 	}
 	#post .subject .input input {
 		width: 100%;
@@ -118,7 +120,7 @@
 	}
 	.mkd #mkd {
 		width: 540px;
-		height: 300px;
+		height: 350px;
 		resize: none;
 		border: 1px solid #ccc;
 		font-family: "Arial";
@@ -167,6 +169,8 @@
 	#post .subject .input, #post .subject .taginfo {
 		width: 740px;
 		float: right;
+		max-height: 182px;
+		overflow-y: auto;
 	}
 	#post .subject .input input {
 		width: 100%;
@@ -193,7 +197,7 @@
 	}
 	.mkd #mkd {
 		width: 740px;
-		height: 300px;
+		height: 350px;
 		resize: none;
 		border: 1px solid #ccc;
 		font-family: "Arial";
@@ -240,6 +244,8 @@
 	#post .subject .input, #post .subject .taginfo {
 		width: 940px;
 		float: right;
+		max-height: 182px;
+		overflow-y: auto;
 	}
 	#post .subject .input input {
 		width: 100%;
@@ -266,7 +272,7 @@
 	}
 	.mkd #mkd {
 		width: 940px;
-		height: 300px;
+		height: 350px;
 		resize: none;
 		border: 1px solid #ccc;
 		font-family: "Arial";
@@ -314,6 +320,8 @@
 	#post .subject .input, #post .subject .taginfo {
 		width: 1140px;
 		float: right;
+		max-height: 182px;
+		overflow-y: auto;
 	}
 	#post .subject .input input {
 		width: 100%;
@@ -340,7 +348,7 @@
 	}
 	.mkd #mkd {
 		width: 1140px;
-		height: 300px;
+		height: 350px;
 		resize: none;
 		border: 1px solid #ccc;
 		font-family: "Arial";
@@ -388,6 +396,8 @@
 	#post .subject .input, #post .subject .taginfo {
 		width: 1340px;
 		float: right;
+		max-height: 182px;
+		overflow-y: auto;
 	}
 	#post .subject .input input {
 		width: 100%;
@@ -414,7 +424,7 @@
 	}
 	.mkd #mkd {
 		width: 1340px;
-		height: 300px;
+		height: 350px;
 		resize: none;
 		border: 1px solid #ccc;
 		font-family: "Arial";
