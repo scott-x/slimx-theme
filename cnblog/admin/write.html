@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" href="/statics/favicon.ico" />
     <!-- <link rel="stylesheet" type="text/css" href="/statics/font-awesome/css/font-awesome.min.css"> -->
     <link rel="stylesheet" type="text/css" href="/statics/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/statics/iconfont/iconfont.css">
@@ -158,6 +159,7 @@
     <script type="text/javascript">
         
         $(function(){
+            $("#subject").focus()
             $.ajax({
                 url: "/api/tags",    // 提交到controller的url路径，在本页面就直接用?代替文件名即可，省略文件名，别的页面则需写全路径
                 cache:false,

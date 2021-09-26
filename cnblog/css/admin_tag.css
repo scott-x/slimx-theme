@@ -26,6 +26,11 @@ table tr th,table tr td {
 	margin: 0 auto;
 }
 
+input[type='color']{
+	position: relative;
+	top: 3px;
+}
+
 #color .box {
 	height: 26px;
 	width: 480px;
