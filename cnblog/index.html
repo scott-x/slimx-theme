@@ -111,6 +111,7 @@
 			<!-- footer end -->
 			<script type="text/javascript">
 				$(function(){
+					var this_year = new Date().getFullYear()
 					var storage = localStorage; 
 					var url = window.location.href
 					//if url is like: http://127.0.0.1:8888/posts
@@ -182,6 +183,7 @@
 					function init() {
 						getEmail()
 						var setting=storage.getItem("setting")
+						var this_year = new Date().getFullYear()
 						if (!setting){
 						    $.get("/api/blog/get_setting",{},function(data){
 						    	setting = data.setting
@@ -213,7 +215,7 @@
 										</tr>
 									</table>
 		                        	`)
-		                        $(".copyright .info").html(`<p>Copyright © 2020 <a href="${github_url}" target="_blank">${github_name}</a>. All rights reserved.</p>`)
+		                        $(".copyright .info").html(`<p>Copyright © 2020-${this_year} <a href="${github_url}" target="_blank">${github_name}</a>. All rights reserved. <br><img src="/statics/gongan.png" style="position:relative;top:6px;"> <a href="https://beian.miit.gov.cn/#/Integrated/index" title="" target="_blank" style="color:#666;opacity:0.7;position:relative;top:5px;">鄂ICP备2022003940号</a></p>`)
 						    })
 						}else {
 							setting=JSON.parse(setting)
@@ -222,6 +224,7 @@
 					    	var github_url = setting.github
 					    	var last = github_url.lastIndexOf("/")
 					    	var github_name = github_url.substring(last+1)
+
 					    	//render dom
                             $(".blog_left .info").html(`
     							<div class="ivator">
@@ -244,7 +247,7 @@
     								</tr>
     							</table>
                             	`)
-	                        $(".copyright .info").html(`<p>Copyright © 2020 <a href="${github_url}" target="_blank">${github_name}</a>. All rights reserved.</p>`)
+	                        $(".copyright .info").html(`<p>Copyright © 2020-${this_year} <a href="${github_url}" target="_blank">${github_name}</a>. All rights reserved. <br><img src="/statics/gongan.png" style="position:relative;top:6px;"> <a href="https://beian.miit.gov.cn/#/Integrated/index" title="" target="_blank" style="color:#666;opacity:0.7;position:relative;top:5px;">鄂ICP备2022003940号</a></p>`)
 						}
 					}
 					init()
